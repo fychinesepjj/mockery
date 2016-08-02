@@ -3,7 +3,8 @@
 import requests
 import functools
 import json
-from core.utils import Console, getSetting
+from core.utils import Console
+from core.conf import settings
 
 
 # 捕获decorated func执行过程中的异常
@@ -37,7 +38,6 @@ def check(code=None):
 
 class Request(object):
     def __init__(self, session=False):
-        self.setting = getSetting()
         if(session):
             self.requests.Session()
         else:
@@ -52,7 +52,7 @@ class Request(object):
                     Console.warn(str(func.__name__) + '-> @get Warn:' + ' parameter url missing!')
                     return
                 try:
-                    kw['timeout'] = kw['timeout'] if kw.get('timeout', None) else self.setting.TIME_OUT
+                    kw['timeout'] = kw['timeout'] if kw.get('timeout', None) else settings.TIME_OUT
                     kw['params'] = kw['data'] if kw.get('data', None) else kw.get('params', None)
                     res = self.requests.get(url, **kw)
                     return func(res.text, res=res)
@@ -70,7 +70,7 @@ class Request(object):
                     Console.warn(str(func.__name__) + '-> @post Warn:' + ' parameter url missing!')
                     return
                 try:
-                    kw['timeout'] = kw['timeout'] if kw.get('timeout', None) else self.setting.TIME_OUT
+                    kw['timeout'] = kw['timeout'] if kw.get('timeout', None) else settings.TIME_OUT
                     kw['data'] = json.dumps(kw['json']) if kw.get('json', None) else kw.get('data', None)
                     res = self.requests.post(url, **kw)
                     return func(res.text, res=res)

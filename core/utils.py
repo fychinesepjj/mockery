@@ -39,28 +39,6 @@ def loadModule(module_name):
     except ImportError as e:
         Console.error('loadModule:' + str(e))
 
-        
-def loadSetting(setting_name):
-    setting = loadModule(setting_name)
-    content = {}
-    if(setting):
-        items = dir(setting)
-        for item in items:
-            if((not item.startswith('__')) or (not item.endswith('__'))):
-                content[item] = getattr(setting, item, None)
-    return content
-
-'''
-linux: export MOCKER_SETTINGS_MODULE=project.settings
-windows: set MOCKER_SETTINGS_MODULE=project.settings
-or 
-in the project, python run.py to auto set MOCKER_SETTINGS_MODULE
-'''
-def getSetting():
-    module_setting = os.environ.get("MOCKER_SETTINGS_MODULE")
-    if(not module_setting):
-        raise Exception("MOCKER_SETTINGS_MODULE is not defined")
-    return loadModule(module_setting)
 
 if __name__ == "__main__":
     Console.log('hello world')
