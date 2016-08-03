@@ -15,8 +15,10 @@ if DEBUG:
 
 if __name__ == "__main__":
     setting_name = 'settings.py'
-    name, ext = os.path.splitext(setting_name)
     if(os.path.exists(setting_name)):
+		name, ext = os.path.splitext(setting_name)
         os.environ.setdefault("MOCKER_SETTINGS_MODULE", name)
-    else:
-        os.environ.setdefault("MOCKER_SETTINGS_MODULE", 'core.settings')
+	else:
+		raise Exception('Project settings is not exist!')
+		
+	

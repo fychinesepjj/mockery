@@ -6,4 +6,6 @@ DEBUG = False
 TIME_OUT = 30
 
 # Test cases located
+CASE_PATH = './'
+
 CASE_DIR = 'case'
