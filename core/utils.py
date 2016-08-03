@@ -17,7 +17,7 @@ class Console(object):
         
     @staticmethod
     def warn(text):
-        clr.print_blue_text(text)
+        clr.print_yellow_text(text)
     
     @staticmethod
     def error(text):
@@ -34,11 +34,12 @@ def loadModuleFile(module_file):
 
         
 def loadModule(module_name):
+    module = None
     try:
         module = __import__(module_name, fromlist=['*'])
-        return module
     except ImportError as e:
         Console.error('loadModule:' + str(e))
+    return module
 
 def dumpJson(data):
 	return json.dumps(data, sort_keys=True)
@@ -84,43 +85,43 @@ if __name__ == "__main__":
     Console.success('hello world')
     Console.warn('hello world')
     Console.error('hello world')
-	
-	#True
-	origin={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
-	dest={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
-	print(matchDict(origin, dest), True)
 
-	#False
-	origin={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
-	dest={}
-	print(matchDict(origin, dest), False)
+    #True
+    origin={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
+    dest={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
+    print(matchDict(origin, dest), True)
 
-	#False
-	origin={}
-	dest={'a':1, 'b':[1,2,3], 'c': 2222}
-	print(matchDict(origin, dest), False)
+    #False
+    origin={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
+    dest={}
+    print(matchDict(origin, dest), False)
 
-	#False
-	origin={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
-	dest={'a':1, 'b':[1,2,3], 'c': 2222}
-	print(matchDict(origin, dest), False)
+    #False
+    origin={}
+    dest={'a':1, 'b':[1,2,3], 'c': 2222}
+    print(matchDict(origin, dest), False)
 
-	#True
-	origin={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
-	dest={'a':1, 'b':[1,2,3], 'c': {}}
-	print(matchDict(origin, dest), True)
+    #False
+    origin={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
+    dest={'a':1, 'b':[1,2,3], 'c': 2222}
+    print(matchDict(origin, dest), False)
 
-	#False
-	origin={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
-	dest={'a':1, 'b':[1,2,3], 'c': {'e':2222}}
-	print(matchDict(origin, dest), False)
+    #True
+    origin={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
+    dest={'a':1, 'b':[1,2,3], 'c': {}}
+    print(matchDict(origin, dest), True)
 
-	#False
-	origin={'a':1, 'b':[1,2,3], 'c': {'e':2222, 't':'cccc'}, 'd':'aaaaa'}
-	dest={'a':1, 'b':[1,2,3], 'c': {}}
-	print(matchDict(origin, dest), False)
+    #False
+    origin={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
+    dest={'a':1, 'b':[1,2,3], 'c': {'e':2222}}
+    print(matchDict(origin, dest), False)
 
-	#True:
-	origin={'a':1, 'b':[1,2,3], 'c': {'e':2222, 't':'cccc'}, 'd':'aaaaa'}
-	dest={'a':1, 'b':[1,2,3], 'c': {'e':2222}}
-	print(matchDict(origin, dest), True)
+    #False
+    origin={'a':1, 'b':[1,2,3], 'c': {'e':2222, 't':'cccc'}, 'd':'aaaaa'}
+    dest={'a':1, 'b':[1,2,3], 'c': {}}
+    print(matchDict(origin, dest), False)
+
+    #True:
+    origin={'a':1, 'b':[1,2,3], 'c': {'e':2222, 't':'cccc'}, 'd':'aaaaa'}
+    dest={'a':1, 'b':[1,2,3], 'c': {'e':2222}}
+    print(matchDict(origin, dest), True)

@@ -56,7 +56,7 @@ class Request(object):
                     kw['timeout'] = kw['timeout'] if kw.get('timeout', None) else settings.TIME_OUT
                     kw['params'] = kw['data'] if kw.get('data', None) else kw.get('params', None)
                     res = self.requests.get(url, **kw)
-					wrappedResponse = Response(res)
+                    wrappedResponse = Response(res)
                     return func(res=wrappedResponse)
                 except Exception as e:
                     Console.error('@get Exception:' + str(e))
@@ -75,7 +75,7 @@ class Request(object):
                     kw['timeout'] = kw['timeout'] if kw.get('timeout', None) else settings.TIME_OUT
                     kw['data'] = json.dumps(kw['json']) if kw.get('json', None) else kw.get('data', None)
                     res = self.requests.post(url, **kw)
-					wrappedResponse = Response(res)
+                    wrappedResponse = Response(res)
                     return func(res=wrappedResponse)
                 except Exception as e:
                     Console.error('@post Exception:' + str(e))
@@ -85,12 +85,12 @@ class Request(object):
 
 class Api(object):
 
-	def __getattr__(self, name):
-		if hasattr(self, name):
-			return getattr(self, name)
-		raise AttributeError('Api attribute: <%s> is not exist' % name)
+    def __getattr__(self, name):
+        if hasattr(self, name):
+            return getattr(self, name)
+        raise AttributeError('Api attribute: <%s> is not exist' % name)
 
-		
+        
 if __name__ == '__main__':
     url = 'http://localhost/php/get.php'
     req = Request()

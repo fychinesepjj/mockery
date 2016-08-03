@@ -10,6 +10,7 @@ STD_OUTPUT_HANDLE= -11
 STD_ERROR_HANDLE = -12
 
 FOREGROUND_BLACK = 0x0
+FOREGROUND_YELLOW = 0x0e # text color contains yellow.
 FOREGROUND_BLUE = 0x01 # text color contains blue.
 FOREGROUND_GREEN= 0x02 # text color contains green.
 FOREGROUND_RED = 0x04 # text color contains red.
@@ -33,10 +34,15 @@ class WindowsColor(object):
         return bool
     
     def __reset_color(self):
-        self.__set_cmd_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE)
+        self.__set_cmd_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_YELLOW)
         
     def print_red_text(self, print_text):
         self.__set_cmd_color(FOREGROUND_RED | FOREGROUND_INTENSITY)
+        print(print_text)
+        self.__reset_color()
+        
+    def print_yellow_text(self, print_text):
+        self.__set_cmd_color(FOREGROUND_YELLOW | FOREGROUND_INTENSITY)
         print(print_text)
         self.__reset_color()
         
@@ -67,6 +73,8 @@ class Color(object):
     def print_blue_text(self, text):
         print(colored(text, 'blue'))
 
+    def print_yellow_text(self, text):
+        print(colored(text, 'yellow'))
 
 def getColor():
     if os.name == 'nt':
