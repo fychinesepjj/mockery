@@ -10,11 +10,11 @@ def validate(func):
         try:
             this, isValid = func(*args, **kw)
             if isValid:
-                msg = '%s.%s  Pass' % (this.name, func.__name__)
-                Console.success(msg.rjust(8))
+                msg = '#%s Expect.%s.%s  Pass' % (this.rank, this.action, func.__name__)
+                Console.success(msg.rjust(8, '>'))
             else:
-                msg = '%s.%s  Fail' % (this.name, func.__name__)
-                Console.error(msg.rjust(8))
+                msg = '#%s Expect.%s.%s  Fail' % (this.rank, this.action, func.__name__)
+                Console.error(msg.rjust(8, '>'))
             return isValid
         except Exception as e:
             Console.error('@validate Exception:' + str(e))
@@ -30,23 +30,26 @@ ept = Expect(res)
 ept.code.eq(200)
 '''
 class Expect(object):
+    action = ''
+    rank = 0
     
-    def __init__(self, obj=None):
+    def __init__(self, obj=None, counter=True):
         if not obj:
             raise Exception('Expect initialize: only accept non-null obj')
         self.obj = obj
-        self.name = ''
+        if counter:
+            self.__class__.rank += 1
     
     def __getattr__(self, name):
-        self.name = name
+        self.__class__.action = name
         if type(self.obj) == dict:
             value = self.obj.get(name, None)
             if value:
-                return self.__class__(value)
+                return self.__class__(value, counter=False)
         elif hasattr(self.obj, name):
-            return self.__class__(getattr(self.obj, name, None))
+            return self.__class__(getattr(self.obj, name, None), counter=False)
         else:
-            self.name = ''
+            self.__class__.action = ''
             raise AttributeError('Expect attribute: <%s> is not exist' % name)
     
     @validate

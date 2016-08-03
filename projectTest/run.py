@@ -30,14 +30,26 @@ if __name__ == "__main__":
         fullName = sys.argv[1:2][0]
         name, ext = os.path.splitext(fullName)
         mod = loadModule(name)
+        
         if not mod:
             sys.exit(0)
+        
         caseClasses = []
         for k in dir(mod):
-            m = getattr(mod, k)
-            if type(m) == types.TypeType and issubclass(m, Case) and m != Case:
-                caseClasses.append(m)
-        print(caseClasses)
+            cls = getattr(mod, k)
+            if type == type(cls) and issubclass(cls, Case) and cls != Case:
+                caseClasses.append(cls)
+
+        for cls in caseClasses:
+            try:
+                msg = '%s--->before run\n' % cls.__name__
+                Console.log(msg.rjust(4, '>'))
+                cls().run()
+            except Exception as e:
+                Console.error(e)
+            finally:
+                msg = '\n%s--->after run' % cls.__name__
+                Console.log(msg.rjust(4, '>'))
     else:
         Console.warn('usage: python run.py caseName')
     

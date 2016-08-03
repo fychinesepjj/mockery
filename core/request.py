@@ -57,7 +57,7 @@ class Request(object):
                     kw['params'] = kw['data'] if kw.get('data', None) else kw.get('params', None)
                     res = self.requests.get(url, **kw)
                     wrappedResponse = Response(res)
-                    return func(res=wrappedResponse)
+                    return func(*args, res=wrappedResponse)
                 except Exception as e:
                     Console.error('@get Exception:' + str(e))
             return wrapper
@@ -76,7 +76,7 @@ class Request(object):
                     kw['data'] = json.dumps(kw['json']) if kw.get('json', None) else kw.get('data', None)
                     res = self.requests.post(url, **kw)
                     wrappedResponse = Response(res)
-                    return func(res=wrappedResponse)
+                    return func(*args, res=wrappedResponse)
                 except Exception as e:
                     Console.error('@post Exception:' + str(e))
             return wrapper
@@ -84,11 +84,23 @@ class Request(object):
 
 
 class Api(object):
+    def __init__(self):
+        self.response = {}
+    
+    def getAllResponse(self):
+        return self.response
+    
+    def __setattr__(self, name, value):
+        if isinstance(value, Response):
+            self.response[name] = value
+        else:
+            object.__setattr__(self, name, value)
 
     def __getattr__(self, name):
-        if hasattr(self, name):
-            return getattr(self, name)
-        raise AttributeError('Api attribute: <%s> is not exist' % name)
+        if name in self.response:
+            return self.response.get(name)
+        else:
+            return object.__getattribute__(self, name)
 
         
 if __name__ == '__main__':

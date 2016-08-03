@@ -4,7 +4,9 @@ from core.case import Case, report
 from core.expect import Expect
 from request import TestMovieApi
 
-class TestCase(Case):
+class TestMovieCase(Case):
+    name = '测试movie用例'
+    
     def init(self):
         self.testApi = TestMovieApi()
 
@@ -14,6 +16,7 @@ class TestCase(Case):
         self.testApi.getMovie()
         # testing
         Expect(self.testApi.movieResponse).code.eq(200)
+        Expect(self.testApi.movieResponse).code.eq(302)
 
     def run(self):
         self.testMovie()

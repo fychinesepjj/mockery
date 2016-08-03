@@ -11,28 +11,27 @@ def report(desc):
         @functools.wraps(func)
         def wrapper(*args, **kw):
             if(desc is None):
-                Console.log('\n%s--->begin' % func.__name__)
+                Console.log('%s--->begin' % func.__name__)
             else:
-                Console.log('\n%s--->begin' % desc)
+                Console.log('%s--->begin' % desc)
             func(*args, **kw)
             if(desc is None):
-                Console.log('\n%s--->end' % func.__name__)
+                Console.log('%s--->end' % func.__name__)
             else:
-                Console.log('\n%s--->end' % desc)
+                Console.log('%s--->end' % desc)
         return wrapper
     return decorator
 
 
 class Case(object):
     
-    def __init__(self, caseName):
+    def __init__(self):
         # used to load case data
-        self.name = caseName
         self._setup()
         if hasattr(self, 'init'):
             self.init()
-        info = '\n%s--->init' % self.name
-        console.log(info.rjust(4))
+        info = '%s--->init' % self.__class__.name
+        Console.log(info.rjust(4, '>'))
         
     def _setup(self):
         # TODO

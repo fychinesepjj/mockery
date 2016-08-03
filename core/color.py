@@ -35,7 +35,11 @@ class WindowsColor(object):
     
     def __reset_color(self):
         self.__set_cmd_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_YELLOW)
-        
+    
+    def print_white_text(self, print_text):
+        self.__reset_color()
+        print(print_text)
+    
     def print_red_text(self, print_text):
         self.__set_cmd_color(FOREGROUND_RED | FOREGROUND_INTENSITY)
         print(print_text)
@@ -63,6 +67,8 @@ class WindowsColor(object):
 
 
 class Color(object):
+    def print_white_text(self, text):
+        print(colored(text, 'white'))
     
     def print_red_text(self, text):
         print(colored(text, 'red'))

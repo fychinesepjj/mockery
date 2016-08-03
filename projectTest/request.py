@@ -7,7 +7,7 @@ req = Request()
 
 class TestMovieApi(Api):
 
-	@req.get('http://192.168.1.175/json/baidu.json')
+	@req.get('http://192.168.1.101:8080/json/baidu.json')
 	@catch
 	def getMovie(self, res):
 		self.movieResponse = res

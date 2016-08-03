@@ -9,7 +9,7 @@ clr = getColor()
 class Console(object):
     @staticmethod
     def log(text):
-        print(text)
+        clr.print_white_text(text)
         
     @staticmethod
     def success(text):
