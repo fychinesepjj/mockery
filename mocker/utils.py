@@ -3,7 +3,7 @@
 
 import os
 import json
-from core.color import getColor
+from mocker.color import getColor
 clr = getColor()
 
 class Console(object):

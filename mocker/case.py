@@ -3,8 +3,8 @@
 import os
 import types
 import functools
-from core.conf import settings
-from core.utils import Console, loadModule, dumpJson
+from mocker.conf import settings
+from mocker.utils import Console, loadModule, dumpJson
 
 
 # 汇报Case执行情况

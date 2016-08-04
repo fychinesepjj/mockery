@@ -14,8 +14,8 @@ if DEBUG:
     except Exception as e:
         print(e)
 
-from core.utils import loadModule, Console
-from core.case import Case
+from mocker.utils import loadModule, Console
+from mocker.case import Case
         
 if __name__ == "__main__":
     setting_name = 'settings.py'

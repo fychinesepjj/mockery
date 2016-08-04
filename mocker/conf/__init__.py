@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 import os
 import copy
-from core.conf import global_settings
-from core.utils import loadModule
+from mocker.conf import global_settings
+from mocker.utils import loadModule
 
 '''
 linux: export MOCKER_SETTINGS_MODULE=project.settings

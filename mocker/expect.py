@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import functools
-from core.utils import matchDict, isNumber, Console
+from mocker.utils import matchDict, isNumber, Console
 
 # 检查Expect是否Pass
 def validate(func):
@@ -21,8 +21,8 @@ def validate(func):
     return wrapper
     
 '''
-from core.expect import Expect
-from core.response import Response
+from mocker.expect import Expect
+from mocker.response import Response
 import requests
 t=requests.get('http://192.168.95.1:8080/json/baidu.json')
 res = Response(t)

@@ -3,9 +3,9 @@
 import requests
 import functools
 import json
-from core.response import Response
-from core.utils import Console
-from core.conf import settings
+from mocker.response import Response
+from mocker.utils import Console
+from mocker.conf import settings
 
 
 # 捕获decorated func执行过程中的异常

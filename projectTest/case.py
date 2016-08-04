@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from core.case import Case, report
-from core.expect import Expect
+from mocker.case import Case, report
+from mocker.expect import Expect
 from request import TestMovieApi
 
 class TestMovieCase(Case):
@@ -17,7 +17,6 @@ class TestMovieCase(Case):
         # testing
         Expect(self.testApi.movieResponse).code.eq(200)
         Expect(self.testApi.movieResponse).code.eq(302)
-        print(self.data, type(self.data))
 
     def run(self):
         self.testMovie()

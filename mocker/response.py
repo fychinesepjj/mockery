@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import requests
-from core.utils import Console, dumpJson
+from mocker.utils import Console, dumpJson
 
 '''
-from core.response import Response
+from mocker.response import Response
 import requests
 t=requests.get('http://192.168.95.1:8080/json/baidu.json')
 res = Response(t)
