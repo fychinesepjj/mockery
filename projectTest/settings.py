@@ -2,5 +2,12 @@
 # -*- coding: utf-8 -*-
 DEBUG = True
 
-# Request timeout, default 30s
-TIME_OUT = 60
+# Request url timeout, default 30s
+TIME_OUT = 30
+
+# Test cases located
+DATA_PATH = './'
+
+DATA_DIR = 'data'
+
+DEFINE_DEFAULT_CONVERT = 'json'

@@ -6,6 +6,8 @@ DEBUG = False
 TIME_OUT = 30
 
 # Test cases located
-CASE_PATH = './'
+DATA_PATH = './'
 
-CASE_DIR = 'case'
+DATA_DIR = 'data'
+
+DEFINE_CONVERT = 'json'
