@@ -7,7 +7,7 @@ import sys
 import types
 
 #未部署情况下，在本地目录使用core依赖
-DEBUG = True
+DEBUG = False
 if DEBUG:
     try:
         full_path = os.path.realpath(__file__)

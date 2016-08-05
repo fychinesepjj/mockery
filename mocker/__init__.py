@@ -2,4 +2,4 @@
 # -*- coding: utf-8 -*-
 # author: jjpan
 
-VERSION = '0.1 beta'
+VERSION = '0.1.0b1'

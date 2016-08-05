@@ -1,38 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# author: jjpan
 import os
-
-try:
-    import sys
-    sys.path.append('./mocker')
-except:
-    pass
-'''
-from core.request import Request
-os.environ.setdefault("MOCKER_SETTINGS_MODULE", "tests.settings")
-
-
-class Test(object):
-    def __init__(self, parent):
-        self.parent = parent
+import sys
+from mocker.utils import Console
     
-    def get(self, func):
-        def wrapper(*args, **kw):
-            print('-->wrapped ' + self.parent)
-            return func(*args, **kw)
-        return wrapper
-
-a = Test('A')
-b = Test('B')
-
-@a.get
-def hello(name):
-    print(name)
-
-@b.get
-def hello2(name):
-    print(name)
-'''  
 
 class ManagementUtility(object):
     
@@ -44,7 +16,7 @@ class ManagementUtility(object):
 
     def help(self, *argv):
         usage = 'mocker usage:\n1. %(cmd)s help\n2. %(cmd)s run caseFile\n3. %(cmd)s create projectName\n' % {'cmd': self.prog_name}
-        print(usage)
+        Console.warn(usage)
         
     def run(self, value):
         print('run', value)
@@ -62,9 +34,12 @@ class ManagementUtility(object):
                 self.help
 
     def execute(self):
-        print('execute')
-        print(self.argv)
         self.getCommand()(self.param)
 
-if __name__ == '__main__':
-    ManagementUtility().execute()
+
+def execute_from_command_line(argv=None):
+    """
+    A simple method that runs a ManagementUtility.
+    """
+    utility = ManagementUtility(argv)
+    utility.execute()

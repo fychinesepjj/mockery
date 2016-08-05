@@ -1,0 +1,9 @@
+include MANIFEST.in
+include package.json
+include *.rst
+include *.txt
+graft mocker
+prune mocker/bin
+prune tests
+global-exclude __pycache__
+global-exclude *.py[co]
