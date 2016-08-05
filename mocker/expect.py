@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# author: jjpan
+
 import functools
 from mocker.utils import matchDict, isNumber, Console
 

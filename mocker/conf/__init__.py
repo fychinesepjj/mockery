@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# author: jjpan
+
 import os
 import copy
 from mocker.conf import global_settings
