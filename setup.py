@@ -9,6 +9,7 @@ except ImportError:
     ez_setup.use_setuptools()
     from setuptools import setup, find_packages
 
+# Avoid duplication of installation of Mocker by python setup.py install 
 overlay_warning = False
 if "install" in sys.argv:
     lib_paths = [get_python_lib()]
@@ -16,10 +17,13 @@ if "install" in sys.argv:
         # catch Debian's custom user site-packages directory.
         lib_paths.append(get_python_lib(prefix="/usr/local"))
     for lib_path in lib_paths:
-        existing_path = os.path.abspath(os.path.join(lib_path, "mocker"))
-        if os.path.exists(existing_path):
-            overlay_warning = True
-            break
+        lib_abs_path = os.path.abspath(lib_path)
+        for name in os.listdir(lib_abs_path):
+            find_path = os.path.abspath(os.path.join(lib_abs_path, name))
+            if os.path.isdir(find_path) and name.startswith('Mocker'):
+                existing_path = find_path
+                overlay_warning = True
+                break
 
 
 EXCLUDE_FROM_PACKAGES = []
@@ -60,7 +64,6 @@ else:
             'requests>=2.10.0',
             'termcolor>=1.1.0',
         ],
-        scripts=['mocker/bin/mocker.py'],
         entry_points={'console_scripts': [
             'mocker = mocker.management:execute_from_command_line',
         ]},
