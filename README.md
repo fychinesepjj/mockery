@@ -91,7 +91,7 @@ DEFINE_CONVERT = 'json'
 
 ##搭建教程
 ###1.创建项目
-在Mocker安装完毕后，在任意目录下执行`Mocker create projectName`命令
+在Mocker安装完毕后，在任意目录下执行`Mocker create exampleProject`命令
 系统会根据项目模板自动构建新项目，如果当前目录下有同名文件夹，系统会提示目录已经存在，不予以创建
 **创建目录结构**
 ```
@@ -104,15 +104,48 @@ DEFINE_CONVERT = 'json'
 ```
 
 ###2.准备数据
-在新建的exampleProject/data目录下，定义模拟数据，格式如下:
+在新建的exampleProject/data目录下，模板定义数据例子，格式如下:
 ```python
 from mocker.case import define
 define('movies', {
-    'name': 'jjpan',
-    'age': 12
+    'name': 'Mocker',
+    'desc': 'define example' 
 })
 ```
 **define(dataName, data, convert=dumpJson)**
 1. `dataName`: 数据名称，在case中可以通过self.data直接引用
 2. `data`：具体数据，可以时任意数据类型如dict，string，number等类型
 3. `convert`: 可选转换器，对data数据进行加工，默认是进行json转换，可以自定义任意函数`convert=lambda x: return x`
+
+###3.编写Case
+是exampleProject/cases.py文件，文件名称不限，后期可以改为任意类型
+```python
+from mocker.case import Case, report
+from mocker.expect import Expect
+
+from .request import TestExampleApi
+
+class TestExampleCase(Case):
+    data = 'examples'
+    
+    def init(self):
+        self.exampleApi = TestExampleApi()
+
+    @report(u'Test example')
+    def testExample(self):
+        # fetch data
+        self.exampleApi.getExample()
+        
+        # validate response
+        Expect(self.exampleApi.exampleResponse).code.eq(200)
+
+    def run(self):
+        self.testExample()
+
+```
+在cases.py文件中可以创建多个Case类，在执行`Mocker run exampleProject`时Cases.py中的所有继承于Case的类都会被执行
+在定义Case类时需要注意几点：
+1. 一定要继承Case父类
+2. 类中有两个内置函数`init`,`run`，一个是类初始化时执行，一个是在最终执行时使用。其中`run`函数不能缺失
+3. 类中`data='examples'`，字段是可选，值对应是当前项目`exampleProject/data/examples.py`文件，在类初始化时加载数据，`self.data`来引用数据
+4. @report用于输出当前执行函数文案，可选（python2中针对report参数值需要加`u`前缀，python3中不需要）
