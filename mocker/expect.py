@@ -11,11 +11,12 @@ def validate(func):
     def wrapper(*args, **kw):
         try:
             this, isValid = func(*args, **kw)
+            action = '.' + this.action if this.action else ''
             if isValid:
-                msg = '#%s Expect.%s.%s  Pass' % (this.rank, this.action, func.__name__)
+                msg = '#%s Expect%s.%s  Pass' % (this.rank, action, func.__name__)
                 Console.success(msg.rjust(8, '>'))
             else:
-                msg = '#%s Expect.%s.%s  Fail' % (this.rank, this.action, func.__name__)
+                msg = '#%s Expect%s.%s  Fail' % (this.rank, action, func.__name__)
                 Console.error(msg.rjust(8, '>'))
             return isValid
         except Exception as e:

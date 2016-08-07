@@ -25,9 +25,16 @@ class ManagementUtility(object):
         if len(runPath) > len(filePath):
             Console.error('@run: can not find base!')
             return
+
         fullName = filePath.replace(runPath, '')
         pathName, ext = os.path.splitext(fullName)
-        name = pathName.replace('\\\\','.').replace('\\','.').replace('//','.').replace('/','.').strip('.')
+        # Support direct run project, default case name is cases.py
+        
+        if not ext.startswith('.py'):
+            pathName = os.path.join(pathName, 'cases.py')
+        name = pathName.replace('\\\\','.').replace('\\','.').replace('//','.').replace('/','.') \
+            .strip('.').strip('.py')
+
         mod = loadModule(name)
         if not mod:
             return

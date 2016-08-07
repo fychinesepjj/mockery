@@ -11,9 +11,10 @@ if __name__ == "__main__":
         ('test.py',), # help
         ('test.py', 'help'), # help
         ('test.py', 'run'), # help
-        ('test.py', 'run', 'examples/case.py'), # loadmodule error
+        ('test.py', 'run', 'examples'), # loadmodule error
         ('test.py', 'create'), # help
         ('test.py', 'create', 'examples')] # ('create', 'projectName')
     
     for test in tests:
+        print('-->' + str(test))
         management.execute_from_command_line(test)
