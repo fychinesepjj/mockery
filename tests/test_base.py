@@ -7,7 +7,7 @@ def loadSettings(settings_name):
         import os
         import sys
         full_path = os.path.abspath('../.')
-        print(full_path)
+        print('\n[import path: %s]' % full_path)
         sys.path.append(full_path)
         os.environ.setdefault("MOCKER_SETTINGS_MODULE", "settings")
     except:

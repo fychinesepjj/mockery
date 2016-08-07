@@ -19,17 +19,17 @@ class ManagementUtility(object):
         usage = 'Mocker usage:\n1. %(cmd)s help\n2. %(cmd)s run caseFile\n3. %(cmd)s create projectName\n' % {'cmd': self.prog_name}
         Console.warn(usage)
         
-    def run(self, value):
+    def run(self, name):
         runPath = os.path.abspath(os.getcwd())
-        filePath = os.path.abspath(value)
+        filePath = os.path.abspath(name)
         if len(runPath) > len(filePath):
-            Console.error('@run: can not find base!')
+            Console.error('@run: running directory error!')
             return
 
         fullName = filePath.replace(runPath, '')
         pathName, ext = os.path.splitext(fullName)
-        # Support direct run project, default case name is cases.py
         
+        # Support direct run project, default case name is cases.py
         if not ext.startswith('.py'):
             pathName = os.path.join(pathName, 'cases.py')
         name = pathName.replace('\\\\','.').replace('\\','.').replace('//','.').replace('/','.') \
@@ -56,8 +56,29 @@ class ManagementUtility(object):
                 msg = '\n%s--->after run' % cls.__name__
                 Console.log(msg.rjust(4, '>'))
     
-    def create(self, value):
-        print('create', value)
+    def create(self, projectName):
+        import shutil
+        from mocker import conf
+
+        runPath = os.path.abspath(os.getcwd())
+        targetDir = os.path.join(runPath, projectName)
+        if os.path.exists(targetDir):
+            Console.warn('Project directory <%s> has exists, Please use another name!' % projectName)
+            return
+
+        _PROJECT_TEMPLATE_NAME = 'project_template'
+        _PROJECT_TEMPLATE_DIR = getattr(conf, '__path__', [])
+        _PROJECT_TEMPLATE_DIR = _PROJECT_TEMPLATE_DIR[0] if len(_PROJECT_TEMPLATE_DIR) else ''
+        print(_PROJECT_TEMPLATE_DIR, _PROJECT_TEMPLATE_NAME)
+        _PROJECT_TEMPLATE = os.path.join(_PROJECT_TEMPLATE_DIR, _PROJECT_TEMPLATE_NAME)
+        if os.path.exists(_PROJECT_TEMPLATE):
+            try:
+                shutil.copytree(_PROJECT_TEMPLATE, targetDir)
+            except Exception as e:
+                Console.error('@create Exception: ' + str(e))
+        else:
+            Console.warn('Project template is lost, Please create project manually!')
+            return
     
     def getCommand(self):
         if len(self.argv[1:]) <= 1:

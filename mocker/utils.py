@@ -39,7 +39,7 @@ def loadModule(module_name):
     try:
         module = __import__(module_name, fromlist=['*'])
     except ImportError as e:
-        Console.error('loadModule:' + str(e))
+        Console.error('@loadModule:' + str(e))
     return module
 
 def dumpJson(data):

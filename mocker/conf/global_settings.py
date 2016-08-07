@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# author: jjpan
-
 DEBUG = False
 
 # Request timeout, default 30s
 TIME_OUT = 30
 
-# Test cases located
+# Test data path
 DATA_PATH = './'
 
+# Test data dir name
 DATA_DIR = 'data'
 
+# define default convert type
 DEFINE_CONVERT = 'json'
