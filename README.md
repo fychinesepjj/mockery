@@ -90,7 +90,7 @@ DEFINE_CONVERT = 'json'
 ```
 
 ##搭建教程
-###创建项目
+###1.创建项目
 在Mocker安装完毕后，在任意目录下执行`Mocker create projectName`命令
 系统会根据项目模板自动构建新项目，如果当前目录下有同名文件夹，系统会提示目录已经存在，不予以创建
 **创建目录结构**
@@ -102,3 +102,17 @@ DEFINE_CONVERT = 'json'
         ---- request.py
         ---- settings.py
 ```
+
+###2.准备数据
+在新建的exampleProject/data目录下，定义模拟数据，格式如下:
+```python
+from mocker.case import define
+define('movies', {
+    'name': 'jjpan',
+    'age': 12
+})
+```
+**define(dataName, data, convert=dumpJson)**
+1. `dataName`: 数据名称，在case中可以通过self.data直接引用
+2. `data`：具体数据，可以时任意数据类型如dict，string，number等类型
+3. `convert`: 可选转换器，对data数据进行加工，默认是进行json转换，可以自定义任意函数`convert=lambda x: return x`
