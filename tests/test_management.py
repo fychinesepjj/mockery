@@ -8,13 +8,16 @@ if __name__ == "__main__":
     loadSettings('examples.settings')
     from mocker import management
     tests = [
-        ('test.py',), # help
-        ('test.py', 'help'), # help
-        ('test.py', 'run'), # help
-        ('test.py', 'run', 'examples'), # loadmodule error
-        ('test.py', 'create'), # help
-        ('test.py', 'create', 'examples')] # ('create', 'projectName')
+        (('test.py',), 'help'), # help
+        (('test.py', 'help'), 'help'), # help
+        (('test.py', 'run'), 'help'), # help
+        (('test.py', 'run', 'examples'), 'run success'), # auto load examples.cases
+        (('test.py', 'run', 'examples/case.py'), 'load error'), # load error
+        (('test.py', 'run', 'examples/cases.py'), 'run success'), # explicit load examples.cases
+        (('test.py', 'create'), 'help'), # help
+        (('test.py', 'create', 'examples'), 'create success')] # ('create', 'projectName')
     
     for test in tests:
-        print('-->' + str(test))
-        management.execute_from_command_line(test)
+        param, info = test
+        print('Expect result: ----------------------------------->' + info)
+        management.execute_from_command_line(param)

@@ -4,7 +4,7 @@
 
 from mocker.case import Case, report
 from mocker.expect import Expect
-from request import TestMovieApi
+from .request import TestMovieApi
 
 class TestMovieCase(Case):
     data = 'movies'
