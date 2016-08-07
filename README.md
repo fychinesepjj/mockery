@@ -51,13 +51,19 @@
 
   可使用`pip install -r requirements.txt`安装
 
+
 ###Mocker安装方法
   1. 下载安装最新版本[python](https://www.python.org/downloads/)
   2. `git clone xxx` or 直接下载源码gz文件
   3. 打开或解压源码文件夹
   4. 进入./dist目录
-  5. 执行安装命令`pip install Mocker-xxx.zip`
+  5. 执行安装命令`pip install Mocker-xxx.zip` (此方法会检查第三方依赖，如不存在会自动下载安装)
   6. 打开命令控制台
      * window下执行win+R，输入cmd，进入命令提示符界面
      * linux 可直接打开命令提示符界面
      * 输入`python`命令，执行`import Mocker;Mocker.VERSION`查看安装是否成功
+### 其他
+  * 需要升级Mocker，可以下载最新版本，同样执行上述安装步骤即可
+  * 需要卸载Mocker，执行`pip uninstall Mocker`进行卸载
+  * 如果需要Mocker依赖一同卸载，下载`pip install pip-autoremove`, 执行`pip-autoremove Mocker`进行卸载
+  * 如有需要Mocker后续会提交pip库，方便下载
