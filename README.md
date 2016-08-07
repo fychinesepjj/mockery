@@ -68,3 +68,22 @@
   * 需要卸载Mocker，执行`pip uninstall Mocker`进行卸载
   * 如果需要Mocker依赖一同卸载，下载`pip install pip-autoremove`, 执行`pip-autoremove Mocker`进行卸载
   * 后续Mocker会提交pip库，方便下载
+
+
+##配置说明
+```python
+# 调试模式
+DEBUG = False
+
+# 网络请求超时最大时间
+TIME_OUT = 30
+
+# 项目数据存放路径，默认是在当前项目下
+DATA_PATH = './'
+
+# 项目数据目录名称，默认data，系统会自动查找data目录下的数据到Case中
+DATA_DIR = 'data'
+
+# define定义的dict数据，最终在加载时被转换为json数据，当然也可以不进行转换，只要define参数中设置convert=None即可
+DEFINE_CONVERT = 'json'
+```
