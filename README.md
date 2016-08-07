@@ -118,7 +118,7 @@ define('movies', {
 3. `convert`: 可选转换器，对data数据进行加工，默认是进行json转换，可以自定义任意函数`convert=lambda x: return x`
 
 ###3.编写Case
-是exampleProject/cases.py文件，文件名称不限，后期可以改为任意类型
+exampleProject/cases.py文件，文件名称不局限于此，后期可以改为任意名称，但在执行用例时需明确名称`Mocker run exampleProject/newCases.py`
 ```python
 from mocker.case import Case, report
 from mocker.expect import Expect
