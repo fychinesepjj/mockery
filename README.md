@@ -24,19 +24,20 @@
     ---- mocker
         ---- conf
              ---- global_settings.py
+             ---- __init__.py 
+             ---- project_template
+        ---- bin
+             ---- __init__.py 
+             ---- mocker.py  #部署后，命令脚本
+        ---- management
+             ---- __init__.py
+        ---- __init__.py  
         ---- case.py
         ---- color.py
         ---- expect.py
         ---- request.py
         ---- response.py
         ---- utils.py
-    ---- exampleProject
-        ---- data
-             ---- exampleData.py
-        ---- case.py
-        ---- request.py
-        ---- run.py
-        ---- settings.py
 ```
 
 ##安装&配置
@@ -78,7 +79,7 @@ DEBUG = False
 # 网络请求超时最大时间
 TIME_OUT = 30
 
-# 项目数据存放路径，默认是在当前项目下
+# 项目数据存放路径，默认在当前新建项目下
 DATA_PATH = './'
 
 # 项目数据目录名称，默认data，系统会自动查找data目录下的数据到Case中
@@ -86,4 +87,18 @@ DATA_DIR = 'data'
 
 # define定义的dict数据，最终在加载时被转换为json数据，当然也可以不进行转换，只要define参数中设置convert=None即可
 DEFINE_CONVERT = 'json'
+```
+
+##搭建教程
+###创建项目
+在Mocker安装完毕后，在任意目录下执行`Mocker create projectName`命令
+系统会根据项目模板自动构建新项目，如果当前目录下有同名文件夹，系统会提示目录已经存在，不予以创建
+**创建目录结构**
+```
+    ---- exampleProject
+        ---- data
+             ---- exampleData.py
+        ---- cases.py
+        ---- request.py
+        ---- settings.py
 ```
