@@ -41,10 +41,23 @@
 
 ##安装&配置
 
-###代码基本运行环境
-  * Python2.7+
-  * Python3+
-  
+###基本运行环境
+  * [Python2.7+](https://www.python.org/downloads/)
+  * [Python3+](https://www.python.org/downloads/)
+
 ###第三方依赖
   * requests >= 2.10.0
   * termcolor >= 1.1.0
+
+  可使用`pip install -r requirements.txt`安装
+
+###Mocker安装方法
+  1. 下载安装最新版本[python](https://www.python.org/downloads/)
+  2. `git clone xxx` or 直接下载源码gz文件
+  3. 打开或解压源码文件夹
+  4. 进入./dist目录
+  5. 执行安装命令`pip install Mocker-xxx.zip`
+  6. 打开命令控制台
+     * window下执行win+R，输入cmd，进入命令提示符界面
+     * linux 可直接打开命令提示符界面
+     * 输入`python`命令，执行`import Mocker;Mocker.VERSION`查看安装是否成功
