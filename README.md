@@ -62,7 +62,8 @@
      * window下执行win+R，输入cmd，进入命令提示符界面
      * linux 可直接打开命令提示符界面
      * 输入`python`命令，执行`import Mocker;Mocker.VERSION`查看安装是否成功
-### 其他
+
+###其他
   * 需要升级Mocker，可以下载最新版本，同样执行上述安装步骤即可
   * 需要卸载Mocker，执行`pip uninstall Mocker`进行卸载
   * 如果需要Mocker依赖一同卸载，下载`pip install pip-autoremove`, 执行`pip-autoremove Mocker`进行卸载
