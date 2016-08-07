@@ -67,4 +67,4 @@
   * 需要升级Mocker，可以下载最新版本，同样执行上述安装步骤即可
   * 需要卸载Mocker，执行`pip uninstall Mocker`进行卸载
   * 如果需要Mocker依赖一同卸载，下载`pip install pip-autoremove`, 执行`pip-autoremove Mocker`进行卸载
-  * 如有需要Mocker后续会提交pip库，方便下载
+  * 后续Mocker会提交pip库，方便下载
