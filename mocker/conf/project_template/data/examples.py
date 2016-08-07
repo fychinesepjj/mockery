@@ -6,6 +6,6 @@ from mocker.case import define
 '''
 define('examples', {
     'name': 'test',
-    'desc': 'define usage'
+    'desc': 'define example'
 })
 '''

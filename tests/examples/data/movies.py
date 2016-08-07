@@ -5,6 +5,6 @@
 from mocker.case import define
 
 define('movies', {
-    'name': 'jjpan',
-    'age': 12
+    'name': 'Mocker',
+    'desc': 'define example' 
 })
