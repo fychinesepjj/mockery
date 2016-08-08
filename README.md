@@ -208,5 +208,6 @@ Request对象提供两种请求：`get`, `post`
 执行用例有两种方法：
 1. 在当前Project目录中执行 `Mocker run cases.py`，针对某个Case文件执行
 2. 在Project上一层目录中执行 `Mocker run projectName`，针对某一项目执行，系统自动查找项目下名为`cases.py`的文件执行
+
 第一种方法灵活性高，但需要具体的Case文件名
 第二种方法针对项目运行，简单易用，要求项目必须有名为`cases.py`的文件
