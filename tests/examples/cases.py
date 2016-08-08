@@ -1,27 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# author: jjpan
-
 from mocker.case import Case, report
 from mocker.expect import Expect
-from .request import TestMovieApi
 
-class TestMovieCase(Case):
-    data = 'movies'
+from .request import TestExampleApi
+
+class TestExampleCase(Case):
+    data = 'examples'
     
     def init(self):
-        pass
-        #self.testApi = TestMovieApi()
+        self.exampleApi = TestExampleApi()
 
-    @report(u'测试影片Api接口')
-    def testMovie(self):
+    @report(u'Test example')
+    def testExample(self):
         # fetch data
-        #self.testApi.getMovie()
-        # testing
-        #Expect(self.testApi.movieResponse).code.eq(200)
-        #Expect(self.testApi.movieResponse).code.eq(302)
-        code = 200
-        Expect(code).eq(200)
+        self.exampleApi.getExample()
+        
+        # validate response
+        Expect(self.exampleApi.exampleResponse).code.eq(200)
 
     def run(self):
-        self.testMovie()
+        self.testExample()

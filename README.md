@@ -62,7 +62,7 @@
   6. 打开命令控制台
      * window下执行win+R，输入cmd，进入命令提示符界面
      * linux 可直接打开命令提示符界面
-     * 输入`python`命令，执行`import Mocker;Mocker.VERSION`查看安装是否成功
+     * 输入`python`命令，执行`import mocker;mocker.VERSION`查看安装是否成功
 
 ###其他
   * 需要升级Mocker，可以下载最新版本，同样执行上述安装步骤即可
@@ -91,7 +91,7 @@ DEFINE_CONVERT = 'json'
 
 ##搭建教程
 ###1.创建项目
-在Mocker安装完毕后，在任意目录下执行`Mocker create exampleProject`命令
+在Mocker安装完毕后，在任意目录下执行`mock create exampleProject`命令（windows如有权限问题，可使用`mock create exampleProject`命令替代）
 系统会根据模板自动构建新项目，如果当前目录下有同名文件夹，系统会提示目录已经存在，不予以创建
 **创建目录结构**
 ```
@@ -119,7 +119,7 @@ define('movies', {
 
 ###3.编写Case
 exampleProject/cases.py文件，默认命名cases.py，后期可选任意名称
-但在执行用例时需明确名称`Mocker run exampleProject/newCases.py`
+但在执行用例时需明确名称`mock run exampleProject/newCases.py`
 ```python
 from mocker.case import Case, report
 from mocker.expect import Expect
@@ -145,7 +145,7 @@ class TestExampleCase(Case):
         self.testExample()
 
 ```
-在cases.py文件中可以创建多个Case类，在执行`Mocker run exampleProject`时Cases.py中的所有继承于Case的类都会被执行
+在cases.py文件中可以创建多个Case类，在执行`mock run exampleProject`时Cases.py中的所有继承于Case的类都会被执行
 在定义Case类时需要注意几点：
 1. 需要继承Case父类
 2. 类中有两个内置函数`init`,`run`，一个是类初始化时执行，一个是在最终执行时使用，其中`run`函数不能缺失
@@ -206,8 +206,8 @@ Request对象提供两种请求：`get`, `post`
 
 ###5.执行用例
 执行用例有两种方法：
-1. 在当前Project目录中执行 `Mocker run cases.py`，针对某个Case文件执行
-2. 在Project上一层目录中执行 `Mocker run projectName`，针对某一项目执行，系统自动查找项目下名为`cases.py`的文件执行
+1. 在当前Project目录中执行 `mock run cases.py`，针对某个Case文件执行
+2. 在Project上一层目录中执行 `mock run projectName`，针对某一项目执行，系统自动查找项目下名为`cases.py`的文件执行
 
 第一种方法灵活性高，但需要具体的Case文件名
 第二种方法针对项目运行，简单易用，要求项目必须有名为`cases.py`的文件

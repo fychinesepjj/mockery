@@ -15,7 +15,8 @@ if __name__ == "__main__":
         (('test.py', 'run', 'examples/case.py'), 'load error'), # load error
         (('test.py', 'run', 'examples/cases.py'), 'run success'), # explicit load examples.cases
         (('test.py', 'create'), 'help') # help
-    
+    ]
+
     for test in tests:
         param, info = test
         print('Expect result: ----------------------------------->' + info)

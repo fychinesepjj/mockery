@@ -3,7 +3,9 @@
 # author: jjpan
 import os
 import sys
-from mocker.utils import Console, loadModule
+import traceback
+from mocker.conf import settings
+from mocker.utils import Console, loadModule, loadPath
 from mocker.case import Case
     
 
@@ -22,6 +24,10 @@ class ManagementUtility(object):
     def run(self, name):
         runPath = os.path.abspath(os.getcwd())
         filePath = os.path.abspath(name)
+
+        if not os.path.exists(filePath):
+            Console.error('@run: %s is not exists' % name)
+            return
         if len(runPath) > len(filePath):
             Console.error('@run: running directory error!')
             return
@@ -29,9 +35,29 @@ class ManagementUtility(object):
         fullName = filePath.replace(runPath, '')
         pathName, ext = os.path.splitext(fullName)
         
+        setting_dir = filePath
         # Support direct run project, default case name is cases.py
         if not ext.startswith('.py'):
             pathName = os.path.join(pathName, 'cases.py')
+            setting_path = os.path.join(setting_dir, 'settings.py')
+        else:
+            setting_dir = os.path.dirname(filePath)
+            setting_path = os.path.join(setting_dir, 'settings.py')
+        
+        if not os.path.exists(setting_path):
+            desc = "settings.py"
+            raise ImproperlyConfigured(
+                "Requested %s, but settings are not configured. "
+                "You must either define the environment variable MOCKER_SETTINGS_MODULE "
+                % desc)
+        
+        # configuare setting path
+        setting_name = '%s.%s' % (os.path.basename(setting_dir), 'settings')
+        os.environ.setdefault("MOCKER_SETTINGS_MODULE", setting_name)
+        
+        # load run path
+        loadPath(runPath)
+        
         name = pathName.replace('\\\\','.').replace('\\','.').replace('//','.').replace('/','.') \
             .strip('.').strip('.py')
 
@@ -47,13 +73,16 @@ class ManagementUtility(object):
 
         for cls in caseClasses:
             try:
-                msg = '%s--->before run\n' % cls.__name__
+                msg = '\n%s--->before run' % cls.__name__
                 Console.log(msg.rjust(4, '>'))
                 cls().run()
             except Exception as e:
-                Console.error(e)
+                Console.error('@run cls().run: ' + str(e))
+                if settings.DEBUG:
+                    msg = traceback.format_exc()
+                    print(msg)
             finally:
-                msg = '\n%s--->after run' % cls.__name__
+                msg = '%s--->after run\n' % cls.__name__
                 Console.log(msg.rjust(4, '>'))
     
     def create(self, projectName):
@@ -69,7 +98,7 @@ class ManagementUtility(object):
         _PROJECT_TEMPLATE_NAME = 'project_template'
         _PROJECT_TEMPLATE_DIR = getattr(conf, '__path__', [])
         _PROJECT_TEMPLATE_DIR = _PROJECT_TEMPLATE_DIR[0] if len(_PROJECT_TEMPLATE_DIR) else ''
-        print(_PROJECT_TEMPLATE_DIR, _PROJECT_TEMPLATE_NAME)
+
         _PROJECT_TEMPLATE = os.path.join(_PROJECT_TEMPLATE_DIR, _PROJECT_TEMPLATE_NAME)
         if os.path.exists(_PROJECT_TEMPLATE):
             try:

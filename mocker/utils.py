@@ -3,7 +3,9 @@
 # author: jjpan
 
 import os
+import sys
 import json
+
 from mocker.color import getColor
 clr = getColor()
 
@@ -80,6 +82,12 @@ def isNumber(s):
         pass
     return False
 
+def loadPath(new_path):
+    try:
+        if os.path.exists(new_path):
+            sys.path.append(new_path)
+    except:
+        pass
 
 if __name__ == "__main__":
     Console.log('hello world')

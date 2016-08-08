@@ -60,12 +60,13 @@ else:
         description=('Mocker is one of the methods of Black-box Testing designed for api test'),
         packages = find_packages(exclude=EXCLUDE_FROM_PACKAGES),
         include_package_data=True,
+        scripts = ['mocker/bin/mock.py'],
         install_requires = [  # 安装依赖的其他包
             'requests>=2.10.0',
             'termcolor>=1.1.0',
         ],
         entry_points={'console_scripts': [
-            'mocker = mocker.management:execute_from_command_line',
+            'mock = mocker.management:execute_from_command_line',
         ]},
         zip_safe=False
     )
