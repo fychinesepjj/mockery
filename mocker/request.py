@@ -123,7 +123,7 @@ if __name__ == '__main__':
     
     # GET with params
     #get_request(data={'name':'abc', 'age': 12})
-    #get_request(data={'name':'abc', 'age': 12}) == #get_baidu(params={'name':'abc', 'age': 12})
+    #get_request(data={'name':'abc', 'age': 12}) == #get_request(params={'name':'abc', 'age': 12})
 
     url2 = 'http://localhost/php/request.php'
     @req.post(url2)
