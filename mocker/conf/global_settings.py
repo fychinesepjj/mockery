@@ -12,4 +12,4 @@ DATA_PATH = './'
 DATA_DIR = 'data'
 
 # define default convert type
-DEFINE_CONVERT = 'json'
+DEFINE_DEFAULT_CONVERT = 'json'

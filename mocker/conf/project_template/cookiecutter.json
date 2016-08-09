@@ -1,0 +1,8 @@
+{
+    "directory_name": "testProject",
+    "case_name": "cases.py",
+    "request_name": "request.py",
+    "setting_name": "settings.py",
+    "example_data_name": "examples.py",
+    "module_path_file": "__init__.py"
+}

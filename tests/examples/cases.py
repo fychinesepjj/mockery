@@ -3,7 +3,7 @@
 from mocker.case import Case, report
 from mocker.expect import Expect
 
-from .request import TestExampleApi
+from request import TestExampleApi
 
 class TestExampleCase(Case):
     data = 'examples'

@@ -19,5 +19,5 @@ if __name__ == "__main__":
 
     for test in tests:
         param, info = test
-        print('Expect result: ----------------------------------->' + info)
+        print('\nExpect result:' + info)
         management.execute_from_command_line(param)

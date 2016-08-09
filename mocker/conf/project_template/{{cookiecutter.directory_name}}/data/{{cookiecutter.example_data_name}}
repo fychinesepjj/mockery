@@ -3,9 +3,7 @@
 
 from mocker.case import define
 
-'''
 define('examples', {
     'name': 'test',
     'desc': 'define example'
 })
-'''

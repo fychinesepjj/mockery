@@ -49,6 +49,7 @@
 ###第三方依赖
   * requests >= 2.10.0
   * termcolor >= 1.1.0
+  * cookiecutter>=1.4.0
 
   可使用`pip install -r requirements.txt`安装
 

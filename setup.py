@@ -64,6 +64,7 @@ else:
         install_requires = [  # 安装依赖的其他包
             'requests>=2.10.0',
             'termcolor>=1.1.0',
+            'cookiecutter>=1.4.0'
         ],
         entry_points={'console_scripts': [
             'mock = mocker.management:execute_from_command_line',

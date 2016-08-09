@@ -10,14 +10,17 @@ def validate(func):
     @functools.wraps(func)
     def wrapper(*args, **kw):
         try:
+            param = args[1] if len(args) > 1 else None
             this, isValid = func(*args, **kw)
             action = '.' + this.action if this.action else ''
             if isValid:
-                msg = '#%s Expect%s.%s  Pass' % (this.rank, action, func.__name__)
-                Console.success(msg.rjust(8, '>'))
+                msg = ' ' * 12 + '#%s Expect%s.%s  [Pass]\n' % (this.rank, action, func.__name__)
+                msg += ' ' * 15 + 'Expect: %s, Result: %s' % (this.obj, param)
+                Console.success(msg)
             else:
-                msg = '#%s Expect%s.%s  Fail' % (this.rank, action, func.__name__)
-                Console.error(msg.rjust(8, '>'))
+                msg = ' ' * 12 + '#%s Expect%s.%s  [Fail]\n' % (this.rank, action, func.__name__)
+                msg += ' ' * 15 + 'Expect: %s, Result: %s' % (this.obj, param)
+                Console.error(msg)
             return isValid
         except Exception as e:
             Console.error('@validate Exception:' + str(e))
