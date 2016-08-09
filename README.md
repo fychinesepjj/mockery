@@ -16,7 +16,9 @@
 
 ##项目说明
 　　Mockery的名称源于Mock，英文原意是模仿者的意思，开发Mockery的主要目的是减轻测试者在黑盒测试某些不必要环节的工作量，提高黑盒测试整体运作效率。不同于以往的黑盒测试，Mockery对使用者有一定的编程要求，但又不至于像白盒测试那么高，介于二者之间。
+  
 　　Mockery最大的特点是灵活性高，最大不足是覆盖面较窄，主要用途是完成黑盒测试中对API结果的验证。
+  
 　　为了降低Mockery的使用门槛，加快项目的创建，Mockery引入了一些快捷指令如：`run`，`create`等，让使用者更容易掌握。
 
 
@@ -94,6 +96,7 @@ DEFINE_CONVERT = 'json'
 ##搭建教程
 ###1.创建项目
 在Mockery安装完毕后，在任意目录下执行`mockery create exampleProject`命令（windows如有权限问题，可使用`mockery-manager.py create exampleProject`命令替代）
+
 系统会根据模板自动构建新项目，如果当前目录下有同名文件夹，系统会提示目录已经存在，不予以创建
 **创建目录结构**
 ```
@@ -190,8 +193,8 @@ Request对象提供两种请求：`get`, `post`
   2. `@req.post('http://localhost/example.json')`
 
 ####函数钩子
-`@catch`用于捕获`getExample`方法中抛出的异常，建议新建函数都加上。
-`@checkStatus`强制约定Api返回的状态码必须为某个值`@checkStatus(code=200)`，否则给予错误提示
+  * `@catch`用于捕获`getExample`方法中抛出的异常，建议新建函数都加上。
+  * `@checkStatus`强制约定Api返回的状态码必须为某个值`@checkStatus(code=200)`，否则给予错误提示
 
 ####发送数据
 如果需要向Api发送数据，`getExample`默认接受几类参数：
