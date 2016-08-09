@@ -115,9 +115,9 @@ define('movies', {
 })
 ```
 **define(dataName, data, convert=dumpJson)**
-1. `dataName`: 数据名称，在case中可以通过self.data直接引用
-2. `data`：具体数据，可以时任意数据类型如dict，string，number等类型
-3. `convert`: 可选转换器，对data数据进行加工，默认是进行json转换，可以自定义任意函数`convert=lambda x: return x`
+  1. `dataName`: 数据名称，在case中可以通过self.data直接引用
+  2. `data`：具体数据，可以时任意数据类型如dict，string，number等类型
+  3. `convert`: 可选转换器，对data数据进行加工，默认是进行json转换，可以自定义任意函数`convert=lambda x: return x`
 
 ###3.编写Case
 exampleProject/cases.py文件，默认命名cases.py，后期可选任意名称
@@ -149,16 +149,16 @@ class TestExampleCase(Case):
 ```
 在cases.py文件中可以创建多个Case类，在执行`mockery run exampleProject`时Cases.py中的所有继承于Case的类都会被执行
 在定义Case类时需要注意几点：
-1. 需要继承Case父类
-2. 类中有两个内置函数`init`,`run`，一个是类初始化时执行，一个是在最终执行时使用，其中`run`函数不能缺失
-3. 类变量`data='examples'`可选，值对应当前项目`exampleProject/data/examples.py`文件，在类初始化时加载数据，`self.data`引用数据
-4. @report用于输出当前执行函数文案，可选（python2中针对report参数值需要加`u`前缀，python3中不需要）
-5. Expect接受Api的response对象作为参数，也接受普通数据类型如`str`, `int`等，`Expect(200).eq(200)`
-6. Expect对象几个常用函数（A：输入数据，B：需要匹配数据）:
-   * `eq` 比较数值类型，A == B
-   * `toBe` 比较`object`，`str`，`int`类型， A == B
-   * `lt`，`gt` 比较数值类型，A < B，A > B
-   * `match`，比较 `dict`，`str`，`int`，其中dict类型支持部匹配，B如果是A的子集，同样也会返回`True`
+  1. 需要继承Case父类
+  2. 类中有两个内置函数`init`,`run`，一个是类初始化时执行，一个是在最终执行时使用，其中`run`函数不能缺失
+  3. 类变量`data='examples'`可选，值对应当前项目`exampleProject/data/examples.py`文件，在类初始化时加载数据，`self.data`引用数据
+  4. @report用于输出当前执行函数文案，可选（python2中针对report参数值需要加`u`前缀，python3中不需要）
+  5. Expect接受Api的response对象作为参数，也接受普通数据类型如`str`, `int`等，`Expect(200).eq(200)`
+  6. Expect对象几个常用函数（A：输入数据，B：需要匹配数据）:
+    * `eq` 比较数值类型，A == B
+    * `toBe` 比较`object`，`str`，`int`类型， A == B
+    * `lt`，`gt` 比较数值类型，A < B，A > B
+    * `match`，比较 `dict`，`str`，`int`，其中dict类型支持部匹配，B如果是A的子集，同样也会返回`True`
 
 ###4.数据请求
 ####基本结构
@@ -186,8 +186,8 @@ request模块主要在`Cases.py`中使用，在`init`函数中初始化
 * `session`:可选参数，默认关闭，主要作用是保存请求状态，用于需要登陆的Api使用
 Request对象提供两种请求：`get`, `post`
 使用方法：
-1. `@req.get('http://localhost/example.json')`
-1. `@req.post('http://localhost/example.json')`
+  1. `@req.get('http://localhost/example.json')`
+  2. `@req.post('http://localhost/example.json')`
 
 ####函数钩子
 `@catch`用于捕获`getExample`方法中抛出的异常，建议新建函数都加上。
@@ -196,24 +196,24 @@ Request对象提供两种请求：`get`, `post`
 ####发送数据
 如果需要向Api发送数据，`getExample`默认接受几类参数：
 `GET`方法：
-1. `getExample()` 直接发送请求，无附带参数
-2. `getExample(data={name:'abc', age:12})` == `getExample(param={name:'abc', age:12})` url附带数据
+  1. `getExample()` 直接发送请求，无附带参数
+  2. `getExample(data={name:'abc', age:12})` == `getExample(param={name:'abc', age:12})` url附带数据
 
 `POST`方法：
-1. `postExample(data={'name':'abc', 'age': 12})` form数据
-2. `postExample(json={'data': {'name':'abc', 'age': 12}})` json数据
-3. `postExample(files = {'file': open('touxiang.png', 'rb')})` 文件对象
-4. `postExample(cookies = {'cookies_are':'working'})` cookies
-5. `postExample(headers = {'content-type': 'application/json'})` headers
+  1. `postExample(data={'name':'abc', 'age': 12})` form数据
+  2. `postExample(json={'data': {'name':'abc', 'age': 12}})` json数据
+  3. `postExample(files = {'file': open('touxiang.png', 'rb')})` 文件对象
+  4. `postExample(cookies = {'cookies_are':'working'})` cookies
+  5. `postExample(headers = {'content-type': 'application/json'})` headers
 
 ###5.执行用例
 执行用例有两种方法：
-1. 在当前Project目录中执行 `mockery run cases.py`，针对某个Case文件执行
-2. 在Project上一层目录中执行 `mockery run projectName`，针对某一项目执行，系统自动查找项目下名为`cases.py`的文件执行
+  1. 在当前Project目录中执行 `mockery run cases.py`，针对某个Case文件执行
+  2. 在Project上一层目录中执行 `mockery run projectName`，针对某一项目执行，系统自动查找项目下名为`cases.py`的文件执行
 
 第一种方法灵活性高，但需要具体的Case文件名
 第二种方法针对项目运行，简单易用，要求项目必须有名为`cases.py`的文件
 
 ##其他
-1. window下安装，执行`mockery`可能会出现各种错误，大部分情况下是因为权限问题，以管理员身份运行即可
-2. 由于时间关系，测试代码覆盖不够完整，因此可能会出现异常问题，请及时反馈给我，后期代码会逐步完善，敬请原谅！
+  1. window下安装，执行`mockery`可能会出现各种错误，大部分情况下是因为权限问题，以管理员身份运行即可
+  2. 由于时间关系，测试代码覆盖不够完整，因此可能会出现异常问题，请及时反馈给我，后期代码会逐步完善，敬请原谅！
