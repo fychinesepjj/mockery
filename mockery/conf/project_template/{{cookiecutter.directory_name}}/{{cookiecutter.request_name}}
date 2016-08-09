@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from mocker.request import Request, Api, catch
+from mockery.request import Request, Api, catch
 
 
 req = Request()

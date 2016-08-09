@@ -3,10 +3,10 @@
 # author: jjpan
 
 import requests
-from mocker.utils import Console, dumpJson
+from mockery.utils import Console, dumpJson
 
 '''
-from mocker.response import Response
+from mockery.response import Response
 import requests
 t=requests.get('http://192.168.95.1:8080/json/baidu.json')
 res = Response(t)

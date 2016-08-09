@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from mocker.case import Case, report
-from mocker.expect import Expect
+from mockery.case import Case, report
+from mockery.expect import Expect
 
 from request import TestExampleApi
 

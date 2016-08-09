@@ -6,9 +6,9 @@ import sys
 import traceback
 from cookiecutter.main import cookiecutter
 
-from mocker.conf import settings
-from mocker.utils import Console, loadModule, loadPath
-from mocker.case import Case
+from mockery.conf import settings
+from mockery.utils import Console, loadModule, loadPath
+from mockery.case import Case
     
 
 class ManagementUtility(object):
@@ -20,7 +20,7 @@ class ManagementUtility(object):
         self.prog_name = os.path.basename(self.argv[0])
 
     def help(self, *argv):
-        usage = 'Mocker usage:\n1. %(cmd)s help\n2. %(cmd)s run caseFile\n3. %(cmd)s create projectName\n' % {'cmd': self.prog_name}
+        usage = 'Mockery usage:\n1. %(cmd)s help\n2. %(cmd)s run caseFile\n3. %(cmd)s create projectName\n' % {'cmd': self.prog_name}
         Console.warn(usage)
         
     def run(self, name):
@@ -79,7 +79,7 @@ class ManagementUtility(object):
                 Console.log(msg)
     
     def create(self, projectName):
-        from mocker import conf
+        from mockery import conf
 
         runPath = os.path.abspath(os.getcwd())
         targetDir = os.path.join(runPath, projectName)

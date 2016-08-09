@@ -4,11 +4,11 @@
 import os
 import types
 import functools
-from mocker.conf import settings
-from mocker.utils import Console, loadModule, dumpJson
+from mockery.conf import settings
+from mockery.utils import Console, loadModule, dumpJson
 
 
-# 汇报Case执行情况
+# Print Case running status
 def report(desc):
     def decorator(func):
         @functools.wraps(func)
@@ -31,7 +31,7 @@ def report(desc):
 class Case(object):
     
     def __init__(self):
-        # used to load case data
+        # Load case data
         self._setup()
         if hasattr(self, 'init'):
             self.init()

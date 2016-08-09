@@ -6,6 +6,6 @@ from test_base import loadSettings
 
 if __name__ == "__main__":
     loadSettings('settings')
-    from mocker import management
+    from mockery import management
     param = ('test.py', 'create', 'createdProject')
     management.execute_from_command_line(param)

@@ -3,9 +3,9 @@
 # author: jjpan
 
 import functools
-from mocker.utils import matchDict, isNumber, Console
+from mockery.utils import matchDict, isNumber, Console
 
-# 检查Expect是否Pass
+# Validate Expect func result
 def validate(func):
     @functools.wraps(func)
     def wrapper(*args, **kw):
@@ -26,16 +26,17 @@ def validate(func):
             Console.error('@validate Exception:' + str(e))
     return wrapper
     
-'''
-from mocker.expect import Expect
-from mocker.response import Response
-import requests
-t=requests.get('http://192.168.95.1:8080/json/baidu.json')
-res = Response(t)
-ept = Expect(res)
-ept.code.eq(200)
-'''
+
 class Expect(object):
+    '''
+    from mockery.expect import Expect
+    from mockery.response import Response
+    import requests
+    t=requests.get('http://localhost/test.json')
+    res = Response(t)
+    ept = Expect(res)
+    ept.code.eq(200)
+    '''
     action = ''
     rank = 0
     

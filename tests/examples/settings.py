@@ -6,7 +6,7 @@ DEBUG = False
 TIME_OUT = 30
 
 # Test data path
-DATA_PATH = './'
+DATA_PATH = './examples'
 
 # Test data dir name
 DATA_DIR = 'data'

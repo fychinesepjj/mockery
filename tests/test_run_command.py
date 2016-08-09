@@ -6,7 +6,7 @@ from test_base import loadSettings
 
 if __name__ == "__main__":
     loadSettings('examples.settings')
-    from mocker import management
+    from mockery import management
     tests = [
         (('test.py',), 'help'), # help
         (('test.py', 'help'), 'help'), # help

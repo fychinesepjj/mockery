@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-def loadSettings(settings_name):
+def loadSettings(settings_name=None):
     settings_name = settings_name if settings_name else 'settings'
     try:
         import os

@@ -4,14 +4,14 @@
 
 import os
 import copy
-from mocker.conf import global_settings
-from mocker.utils import loadModule
+from mockery.conf import global_settings
+from mockery.utils import loadModule
 
 '''
-linux: export MOCKER_SETTINGS_MODULE=project.settings
-windows: set MOCKER_SETTINGS_MODULE=project.settings
-or 
-in the project, python run.py to auto set MOCKER_SETTINGS_MODULE
+Methods:
+    1. linux: export MOCKER_SETTINGS_MODULE=project.settings
+    2. windows: set MOCKER_SETTINGS_MODULE=project.settings
+    3. os.environ.setdefault("MOCKER_SETTINGS_MODULE", 'project.settings')
 '''
 ENVIRONMENT_VARIABLE = "MOCKER_SETTINGS_MODULE"
 empty = object()

@@ -9,7 +9,7 @@ except ImportError:
     ez_setup.use_setuptools()
     from setuptools import setup, find_packages
 
-# Avoid duplication of installation of Mocker by python setup.py install 
+# Avoid duplication of installation of Mockery by python setup.py install 
 overlay_warning = False
 if "install" in sys.argv:
     lib_paths = [get_python_lib()]
@@ -20,7 +20,7 @@ if "install" in sys.argv:
         lib_abs_path = os.path.abspath(lib_path)
         for name in os.listdir(lib_abs_path):
             find_path = os.path.abspath(os.path.join(lib_abs_path, name))
-            if os.path.isdir(find_path) and name.startswith('Mocker'):
+            if os.path.isdir(find_path) and name.lower().startswith('mockery'):
                 existing_path = find_path
                 overlay_warning = True
                 break
@@ -28,7 +28,7 @@ if "install" in sys.argv:
 
 EXCLUDE_FROM_PACKAGES = []
 
-version = __import__('mocker').VERSION
+version = __import__('mockery').VERSION
 
 if overlay_warning:
     sys.stderr.write("""
@@ -37,37 +37,37 @@ if overlay_warning:
 WARNING!
 ========
 
-You have just installed Mocker over top of an existing
+You have just installed Mockery over top of an existing
 installation, without removing it first. Because of this,
 your install may now include extraneous files from a
 previous version that have since been removed from
-Mocker. This is known to cause a variety of problems. You
+Mockery. This is known to cause a variety of problems. You
 should manually remove the
 
 %(existing_path)s
 
-directory and re-install Mocker.
+directory and re-install Mockery.
 
 """ % {"existing_path": existing_path})
 
 else:
     setup(
-        name='Mocker',
+        name='Mockery',
         version=version,
         url='https://github.com/fychinesepjj',
         author='jjpan',
         author_email='fychinesepjj@126.com',
-        description=('Mocker is one of the methods of Black-box Testing designed for api test'),
+        description=('Mockery is one of the methods of Black-box Testing designed for api test'),
         packages = find_packages(exclude=EXCLUDE_FROM_PACKAGES),
         include_package_data=True,
-        scripts = ['mocker/bin/mock.py'],
+        scripts = ['mockery/bin/mockery-manager.py'],
         install_requires = [  # 安装依赖的其他包
             'requests>=2.10.0',
             'termcolor>=1.1.0',
             'cookiecutter>=1.4.0'
         ],
         entry_points={'console_scripts': [
-            'mock = mocker.management:execute_from_command_line',
+            'mockery = mockery.management:execute_from_command_line',
         ]},
         zip_safe=False
     )

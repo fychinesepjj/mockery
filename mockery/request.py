@@ -5,12 +5,11 @@
 import requests
 import functools
 import json
-from mocker.response import Response
-from mocker.utils import Console
-from mocker.conf import settings
+from mockery.response import Response
+from mockery.utils import Console
+from mockery.conf import settings
 
 
-# 捕获decorated func执行过程中的异常
 def catch(func):
     @functools.wraps(func)
     def wrapper(*args, **kw):
@@ -21,7 +20,7 @@ def catch(func):
     return wrapper
 
 
-# 检查response成功状态
+# Check whether the reponse status meet the requirements
 def checkStatus(code=None):
     def decorator(func):
         @functools.wraps(func)
@@ -40,13 +39,13 @@ def checkStatus(code=None):
 
 
 class Request(object):
+    
     def __init__(self, session=False):
         if(session):
             self.requests.Session()
         else:
             self.requests = requests
     
-    # GET请求
     def get(self, url=None):
         def decorator(func):
             @functools.wraps(func)
@@ -65,7 +64,6 @@ class Request(object):
             return wrapper
         return decorator
 
-    # POST请求
     def post(self, url=None):
         def decorator(func):
             @functools.wraps(func)
@@ -86,6 +84,7 @@ class Request(object):
 
 
 class Api(object):
+    
     def __init__(self):
         self.response = {}
     
@@ -106,7 +105,7 @@ class Api(object):
 
         
 if __name__ == '__main__':
-    url = 'http://localhost/php/get.php'
+    url = 'http://localhost/api/get.php'
     req = Request()
     
     '''
@@ -125,7 +124,7 @@ if __name__ == '__main__':
     #get_request(data={'name':'abc', 'age': 12})
     #get_request(data={'name':'abc', 'age': 12}) == #get_request(params={'name':'abc', 'age': 12})
 
-    url2 = 'http://localhost/php/request.php'
+    url2 = 'http://localhost/api/request.php'
     @req.post(url2)
     @checkStatus(code=200)
     @catch

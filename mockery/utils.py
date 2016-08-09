@@ -6,7 +6,7 @@ import os
 import sys
 import json
 
-from mocker.color import getColor
+from mockery.color import getColor
 clr = getColor()
 
 class Console(object):
@@ -35,7 +35,7 @@ def loadModuleFile(module_file):
     except ImportError as e:
         Console.error('loadModuleFile:' + str(e))
 
-        
+
 def loadModule(module_name):
     module = None
     try:
@@ -44,8 +44,10 @@ def loadModule(module_name):
         Console.error('@loadModule:' + str(e))
     return module
 
+
 def dumpJson(data):
 	return json.dumps(data, sort_keys=True)
+
 
 def matchDict(origin, dest):
 	if not isinstance(origin, dict) or not isinstance(dest, dict):
@@ -68,6 +70,7 @@ def matchDict(origin, dest):
 			return False
 	return status
 
+
 def isNumber(s):
     try:
         float(s)
@@ -82,6 +85,7 @@ def isNumber(s):
         pass
     return False
 
+
 def loadPath(new_path):
     try:
         if os.path.exists(new_path):
@@ -89,48 +93,6 @@ def loadPath(new_path):
     except:
         pass
 
+    
 if __name__ == "__main__":
-    Console.log('hello world')
-    Console.success('hello world')
-    Console.warn('hello world')
-    Console.error('hello world')
-
-    #True
-    origin={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
-    dest={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
-    print(matchDict(origin, dest), True)
-
-    #False
-    origin={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
-    dest={}
-    print(matchDict(origin, dest), False)
-
-    #False
-    origin={}
-    dest={'a':1, 'b':[1,2,3], 'c': 2222}
-    print(matchDict(origin, dest), False)
-
-    #False
-    origin={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
-    dest={'a':1, 'b':[1,2,3], 'c': 2222}
-    print(matchDict(origin, dest), False)
-
-    #True
-    origin={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
-    dest={'a':1, 'b':[1,2,3], 'c': {}}
-    print(matchDict(origin, dest), True)
-
-    #False
-    origin={'a':1, 'b':[1,2,3], 'c': {}, 'd':'aaaaa'}
-    dest={'a':1, 'b':[1,2,3], 'c': {'e':2222}}
-    print(matchDict(origin, dest), False)
-
-    #False
-    origin={'a':1, 'b':[1,2,3], 'c': {'e':2222, 't':'cccc'}, 'd':'aaaaa'}
-    dest={'a':1, 'b':[1,2,3], 'c': {}}
-    print(matchDict(origin, dest), False)
-
-    #True:
-    origin={'a':1, 'b':[1,2,3], 'c': {'e':2222, 't':'cccc'}, 'd':'aaaaa'}
-    dest={'a':1, 'b':[1,2,3], 'c': {'e':2222}}
-    print(matchDict(origin, dest), True)
+    pass

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # author: jjpan
-from mocker import management
+from mockery import management
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-#Mocker使用说明
+#Mockery使用说明
 ---
 
 ##目录
@@ -12,23 +12,24 @@
         3. 编写Case
         4. 数据请求
         5. 执行用例
+    * 其他
 
 ##项目说明
-　　Mocker的名称源于Mock，英文原意是模仿者的意思，开发Mocker的主要目的是减轻测试者在黑盒测试某些不必要环节的工作量，提高黑盒测试整体运作效率。不同于以往的黑盒测试，Mocker对使用者有一定的编程要求，但又不至于像白盒测试那么高，介于二者之间。
-　　Mocker最大的特点是灵活性高，最大不足是覆盖面较窄，主要用途是完成黑盒测试中对API结果的验证。
-　　为了降低Mocker的使用门槛，加快项目的创建，Mocker引入了一些快捷指令如：`run`，`create`等，让使用者更容易掌握。
+　　Mockery的名称源于Mock，英文原意是模仿者的意思，开发Mockery的主要目的是减轻测试者在黑盒测试某些不必要环节的工作量，提高黑盒测试整体运作效率。不同于以往的黑盒测试，Mockery对使用者有一定的编程要求，但又不至于像白盒测试那么高，介于二者之间。
+　　Mockery最大的特点是灵活性高，最大不足是覆盖面较窄，主要用途是完成黑盒测试中对API结果的验证。
+　　为了降低Mockery的使用门槛，加快项目的创建，Mockery引入了一些快捷指令如：`run`，`create`等，让使用者更容易掌握。
 
 
 ##项目结构
 ```
-    ---- mocker
+    ---- mockery
         ---- conf
              ---- global_settings.py
              ---- __init__.py 
              ---- project_template
         ---- bin
              ---- __init__.py 
-             ---- mocker.py  #部署后，命令脚本
+             ---- mockery-manager.py  #部署后，命令脚本
         ---- management
              ---- __init__.py
         ---- __init__.py  
@@ -54,22 +55,22 @@
   可使用`pip install -r requirements.txt`安装
 
 
-###Mocker安装方法
+###Mockery安装方法
   1. 下载安装最新版本[python](https://www.python.org/downloads/)
   2. `git clone xxx` or 直接下载源码gz文件
   3. 打开或解压源码文件夹
   4. 进入./dist目录
-  5. 执行安装命令`pip install Mocker-xxx.zip` (此方法会检查第三方依赖，如不存在会自动下载安装)
+  5. 执行安装命令`pip install Mockery-xxx.zip` (此方法会检查第三方依赖，如不存在会自动下载安装)
   6. 打开命令控制台
      * window下执行win+R，输入cmd，进入命令提示符界面
      * linux 可直接打开命令提示符界面
-     * 输入`python`命令，执行`import mocker;mocker.VERSION`查看安装是否成功
+     * 输入`python`命令，执行`import mockery;mockery.VERSION`查看安装是否成功
 
 ###其他
-  * 需要升级Mocker，可以下载最新版本，同样执行上述安装步骤即可
-  * 需要卸载Mocker，执行`pip uninstall Mocker`进行卸载
-  * 如果需要Mocker依赖一同卸载，下载`pip install pip-autoremove`, 执行`pip-autoremove Mocker`进行卸载
-  * 后续Mocker会提交pip库，方便下载
+  * 需要升级mockery，可以下载最新版本，同样执行上述安装步骤即可
+  * 需要卸载mockery，执行`pip uninstall mockery`进行卸载
+  * 如果需要mockery依赖一同卸载，下载`pip install pip-autoremove`, 执行`pip-autoremove mockery`进行卸载
+  * 后续mockery会提交pip库，方便下载
 
 
 ##配置说明
@@ -92,7 +93,7 @@ DEFINE_CONVERT = 'json'
 
 ##搭建教程
 ###1.创建项目
-在Mocker安装完毕后，在任意目录下执行`mock create exampleProject`命令（windows如有权限问题，可使用`mock create exampleProject`命令替代）
+在Mockery安装完毕后，在任意目录下执行`mockery create exampleProject`命令（windows如有权限问题，可使用`mockery-manager.py create exampleProject`命令替代）
 系统会根据模板自动构建新项目，如果当前目录下有同名文件夹，系统会提示目录已经存在，不予以创建
 **创建目录结构**
 ```
@@ -107,9 +108,9 @@ DEFINE_CONVERT = 'json'
 ###2.准备数据
 在新建的exampleProject/data目录下，模板定义数据例子，格式如下:
 ```python
-from mocker.case import define
+from mockery.case import define
 define('movies', {
-    'name': 'Mocker',
+    'name': 'mockery',
     'desc': 'define example' 
 })
 ```
@@ -120,10 +121,10 @@ define('movies', {
 
 ###3.编写Case
 exampleProject/cases.py文件，默认命名cases.py，后期可选任意名称
-但在执行用例时需明确名称`mock run exampleProject/newCases.py`
+但在执行用例时需明确名称`mockery run exampleProject/newCases.py`
 ```python
-from mocker.case import Case, report
-from mocker.expect import Expect
+from mockery.case import Case, report
+from mockery.expect import Expect
 
 from .request import TestExampleApi
 
@@ -146,7 +147,7 @@ class TestExampleCase(Case):
         self.testExample()
 
 ```
-在cases.py文件中可以创建多个Case类，在执行`mock run exampleProject`时Cases.py中的所有继承于Case的类都会被执行
+在cases.py文件中可以创建多个Case类，在执行`mockery run exampleProject`时Cases.py中的所有继承于Case的类都会被执行
 在定义Case类时需要注意几点：
 1. 需要继承Case父类
 2. 类中有两个内置函数`init`,`run`，一个是类初始化时执行，一个是在最终执行时使用，其中`run`函数不能缺失
@@ -163,7 +164,7 @@ class TestExampleCase(Case):
 ####基本结构
 exampleProject/request.py文件，默认命名request.py，后期可选任意名称
 ```python
-from mocker.request import Request, Api, catch
+from mockery.request import Request, Api, catch
 # 创建请求
 req = Request()
 
@@ -207,8 +208,12 @@ Request对象提供两种请求：`get`, `post`
 
 ###5.执行用例
 执行用例有两种方法：
-1. 在当前Project目录中执行 `mock run cases.py`，针对某个Case文件执行
-2. 在Project上一层目录中执行 `mock run projectName`，针对某一项目执行，系统自动查找项目下名为`cases.py`的文件执行
+1. 在当前Project目录中执行 `mockery run cases.py`，针对某个Case文件执行
+2. 在Project上一层目录中执行 `mockery run projectName`，针对某一项目执行，系统自动查找项目下名为`cases.py`的文件执行
 
 第一种方法灵活性高，但需要具体的Case文件名
 第二种方法针对项目运行，简单易用，要求项目必须有名为`cases.py`的文件
+
+##其他
+1. window下安装，执行`mockery`可能会出现各种错误，大部分情况下是因为权限问题，以管理员身份运行即可
+2. 由于时间关系，测试代码覆盖不够完整，因此可能会出现异常问题，请及时反馈给我，后期代码会逐步完善，敬请原谅！
