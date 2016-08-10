@@ -4,6 +4,7 @@
 import os
 import types
 import functools
+import traceback
 from mockery.conf import settings
 from mockery.utils import Console, loadModule, dumpJson
 
@@ -51,7 +52,7 @@ class Case(object):
             define.clear()
             mod = loadModule(moduleName)
             definedData = define.getAll()
-            self.data = definedData.get(self.__class__.data, None)
+            self.data = definedData
         else:
             Console.warn(' ' * 4 + '@%s setup: no data loaded!' % self.__class__.__name__)
     def run(self):
@@ -61,23 +62,28 @@ class Case(object):
 class Define(object):
     store = {}
     
-    def __call__(self, name, value, convert=None):
+    def __call__(self, name, value, convert=''):
         try:
-            if convert is None and settings.DEFINE_DEFAULT_CONVERT and settings.DEFINE_DEFAULT_CONVERT == 'json':
+            if convert == '' and settings.DEFINE_DEFAULT_CONVERT and settings.DEFINE_DEFAULT_CONVERT == 'json':
                 convert = dumpJson
             if convert:
                 if type(convert) == types.FunctionType:
-                    self.store[name] = convert(value)
+                    Define.store[name] = convert(value)
+                else:
+                    Define.store[name] = value
             else:
-                self.store[name] = value
+                Define.store[name] = value
         except Exception as e:
             Console.error('@define Exception: ' + str(e))
+            if settings.DEBUG:
+                msg = traceback.format_exc()
+                Console.error(msg)
     
     def clear(self):
-        self.store = {}
+        Define.store = {}
         
     def getAll(self):
-        return self.store
+        return Define.store
 
 define = Define()
 

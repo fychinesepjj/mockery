@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # author: jjpan
-
+import traceback
 import functools
+from mockery.conf import settings
 from mockery.utils import matchDict, isNumber, Console
 
 # Validate Expect func result
@@ -20,10 +21,13 @@ def validate(func):
             else:
                 msg = ' ' * 12 + '#%s Expect%s.%s  [Fail]\n' % (this.rank, action, func.__name__)
                 msg += ' ' * 15 + 'Expect: %s, Result: %s' % (this.obj, param)
-                Console.error(msg)
-            return isValid
+                Console.warn(msg)
+            return (this, isValid)
         except Exception as e:
             Console.error('@validate Exception:' + str(e))
+            if settings.DEBUG:
+                msg = traceback.format_exc()
+                Console.error(msg)
     return wrapper
     
 
@@ -59,45 +63,55 @@ class Expect(object):
             self.__class__.action = ''
             raise AttributeError('Expect attribute: <%s> is not exist' % name)
     
-    @validate
-    def eq(self, value):
+    def _eq(self, value):
         if not value:
             return (self, False)
         if not isNumber(self.obj) or not isNumber(value):
             return (self, False)
         return (self, self.obj == value)
     
-    @validate
-    def gt(self, value):
+    def _gt(self, value):
         if not value:
             return (self, False)
         if not isNumber(self.obj) or not isNumber(value):
             return (self, False)
         return (self, self.obj > value)
     
-    @validate
-    def lt(self, value):
+    def _lt(self, value):
         if not value:
             return (self, False)
         if not isNumber(self.obj) or not isNumber(value):
             return (self, False)
         return (self, self.obj < value)
     
+    def _toBe(self, value):
+        return (self, self.obj == value)
+    
+    @validate
+    def eq(self, value):
+        return self._eq(value)
+    
+    @validate
+    def gt(self, value):
+        return self._gt(value)
+    
+    @validate
+    def lt(self, value):
+        return self._lt(value)
+    
     @validate
     def toBe(self, value):
-        return (self, self.obj == value)
+        return self._toBe(value)
     
     @validate
     def match(self, value):
         if not value: return (self, False)
-        
         if isinstance(self.obj, dict) and isinstance(value, dict):
             return (self, matchDict(self.obj, value))
         
         elif isNumber(self.obj) and isNumber(value):
-            return self.eq(value)
-        
+            return self._eq(value)
         elif isinstance(self.obj, str) and isinstance(value, str):
             return (self, value in self.obj)
         else:
-            return self.toBe(value)
+            return self._toBe(value)

@@ -75,13 +75,13 @@ def isNumber(s):
     try:
         float(s)
         return True
-    except ValueError:
+    except Exception:
         pass
     try:
         import unicodedata
         unicodedata.numeric(s)
         return True
-    except (TypeError, ValueError):
+    except Exception:
         pass
     return False
 

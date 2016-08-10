@@ -4,6 +4,7 @@
 
 import requests
 import functools
+import traceback
 import json
 from mockery.response import Response
 from mockery.utils import Console
@@ -17,6 +18,9 @@ def catch(func):
             return func(*args, **kw)
         except Exception as e:
             Console.error('@catch Exception:' + str(e))
+            if settings.DEBUG:
+                msg = traceback.format_exc()
+                Console.error(msg)
     return wrapper
 
 
@@ -61,6 +65,9 @@ class Request(object):
                     return func(*args, res=wrappedResponse)
                 except Exception as e:
                     Console.error('@get Exception:' + str(e))
+                    if settings.DEBUG:
+                        msg = traceback.format_exc()
+                        Console.error(msg)
             return wrapper
         return decorator
 
@@ -79,6 +86,9 @@ class Request(object):
                     return func(*args, res=wrappedResponse)
                 except Exception as e:
                     Console.error('@post Exception:' + str(e))
+                    if settings.DEBUG:
+                        msg = traceback.format_exc()
+                        Console.error(msg)
             return wrapper
         return decorator
 

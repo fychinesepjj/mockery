@@ -103,6 +103,9 @@ class ManagementUtility(object):
                 Console.success('Project created: ' + status)
             except Exception as e:
                 Console.error('@create Exception: ' + str(e))
+                if settings.DEBUG:
+                    msg = traceback.format_exc()
+                    Console.error(msg)
         else:
             Console.warn('Project template is lost, Please create project manually!')
             return

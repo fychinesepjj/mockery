@@ -3,7 +3,13 @@
 
 from mockery.case import define
 
-define('examples', {
-    'name': 'test',
-    'desc': 'define example'
-})
+define('jsonData', {
+    "name": "abc",
+    "age": 28,
+    "desc": "this is a json mock"
+});
+
+define('dictData', {
+    "name": "abc",
+    "age": 28
+}, convert=None);

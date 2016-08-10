@@ -13,7 +13,7 @@ if __name__ == "__main__":
         (('test.py', 'run'), 'help'), # help
         (('test.py', 'run', 'examples'), 'run success'), # auto load examples.cases
         (('test.py', 'run', 'examples/case.py'), 'load error'), # load error
-        (('test.py', 'run', 'examples/cases.py'), 'run success'), # explicit load examples.cases
+        #(('test.py', 'run', 'examples/cases.py'), 'run success'), # explicit load examples.cases
         (('test.py', 'create'), 'help') # help
     ]
 
