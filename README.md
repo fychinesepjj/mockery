@@ -90,7 +90,7 @@ DATA_PATH = './'
 DATA_DIR = 'data'
 
 # define定义的dict数据，最终在加载时被转换为json数据，当然也可以不进行转换，只要define参数中设置convert=None即可
-DEFINE_CONVERT = 'json'
+DEFINE_DEFAULT_CONVERT = 'json'
 ```
 
 ##搭建教程
@@ -162,6 +162,68 @@ class TestExampleCase(Case):
     * `toBe` 比较`object`，`str`，`int`类型， A == B
     * `lt`，`gt` 比较数值类型，A < B，A > B
     * `match`，比较 `dict`，`str`，`int`，其中dict类型支持部匹配，B如果是A的子集，同样也会返回`True`
+
+####Case data数据定义与引用
+```python
+    define('jsonData', {
+        "name": "abc",
+        "age": 28,
+        "desc": "this is a json mock"
+    });
+
+    define('dictData', {
+        "name": "abc",
+        "age": 28
+    }, convert=None);
+
+    define('strData','string data', convert=None);
+    
+    define('numberData',123456789, convert=None);
+    
+    # converty function
+    def convertFunc(value):
+        return value
+    
+    define('numberData',123456789, convert=convertFunc);
+```
+convert值可以是：`json`, `''`, `None`, `def`函数，convert默认值为`''`空字符串。
+  1. 当`DEFINE_DEFAULT_CONVERT='json'`且`convert=''`时，启用默认JSON转换
+  2. 当`convert=None`，关闭默认JSON转换，使用定义原始值
+
+在Case初始化完毕，`define`声明的数据会赋予Case类的data值中:
+```python
+
+    data = {
+        'jsonData': '{"name"...}',
+        'dictData': {..},
+        'strData': 'string data',
+        'numberData': 123456789
+    }
+    
+    # data数据是字典类型
+    type(data) == type(dict)
+```
+
+####Expect几种用法
+```python
+    # validate response status
+    Expect(self.exampleApi.exampleResponse).code.eq(200)
+
+    # validate json
+    Expect(self.exampleApi.exampleResponse.json).toBe(self.data.get('jsonData'))
+
+    # validate dict
+    Expect(self.exampleApi.exampleResponse.dict).match(self.data.get('dictData'))
+
+    # validate number
+    Expect(123456789).match(self.data.get('numberData'))
+
+    # validate string
+    Expect('source string').match(self.data.get('strData'))
+    
+    # 获取Case定义的数据
+    self.data.get('jsonData')
+```
 
 ###4.数据请求
 ####基本结构

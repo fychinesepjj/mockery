@@ -13,11 +13,28 @@ class TestExampleCase(Case):
 
     @report(u'Test example')
     def testExample(self):
+        '''
         # fetch data
         self.exampleApi.getExample()
         
         # validate response
         Expect(self.exampleApi.exampleResponse).code.eq(200)
+        
+        # validate json
+        Expect(self.exampleApi.exampleResponse.json).toBe(self.data.get('jsonData'))
+        
+        # validate dict
+        Expect(self.exampleApi.exampleResponse.dict).match(self.data.get('dictData'))
+        
+        # validate number
+        Expect(123456789).match(self.data.get('numberData'))
+        
+        # validate string
+        Expect('source string').match(self.data.get('strData'))
+        '''
+        
+        # validate number
+        Expect(200).eq(200)
 
     def run(self):
         self.testExample()

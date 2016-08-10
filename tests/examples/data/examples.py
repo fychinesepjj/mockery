@@ -13,3 +13,7 @@ define('dictData', {
     "name": "abc",
     "age": 28
 }, convert=None);
+
+define('strData','string data', convert=None);
+
+define('numberData',123456789, convert=None);

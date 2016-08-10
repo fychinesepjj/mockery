@@ -15,13 +15,15 @@ def validate(func):
             this, isValid = func(*args, **kw)
             action = '.' + this.action if this.action else ''
             if isValid:
-                msg = ' ' * 12 + '#%s Expect%s.%s  [Pass]\n' % (this.rank, action, func.__name__)
-                msg += ' ' * 15 + 'Expect: %s, Result: %s' % (this.obj, param)
+                msg = ' ' * 12 + '#%s Expect%s.%s  [Pass]' % (this.rank, action, func.__name__)
                 Console.success(msg)
+                msg = ' ' * 15 + 'Expect: %s, Result: %s\n' % (this.obj, param)
+                Console.log(msg)
             else:
-                msg = ' ' * 12 + '#%s Expect%s.%s  [Fail]\n' % (this.rank, action, func.__name__)
-                msg += ' ' * 15 + 'Expect: %s, Result: %s' % (this.obj, param)
+                msg = ' ' * 12 + '#%s Expect%s.%s  [Fail]' % (this.rank, action, func.__name__)
                 Console.warn(msg)
+                msg = ' ' * 15 + 'Expect: %s, Result: %s\n' % (this.obj, param)
+                Console.log(msg)
             return (this, isValid)
         except Exception as e:
             Console.error('@validate Exception:' + str(e))

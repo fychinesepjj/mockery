@@ -64,8 +64,12 @@ class Define(object):
     
     def __call__(self, name, value, convert=''):
         try:
-            if convert == '' and settings.DEFINE_DEFAULT_CONVERT and settings.DEFINE_DEFAULT_CONVERT == 'json':
+            if convert == 'json' or \
+                convert == '' and \
+                settings.DEFINE_DEFAULT_CONVERT and \
+                settings.DEFINE_DEFAULT_CONVERT == 'json':
                 convert = dumpJson
+
             if convert:
                 if type(convert) == types.FunctionType:
                     Define.store[name] = convert(value)

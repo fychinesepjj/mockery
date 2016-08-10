@@ -24,6 +24,12 @@ class TestExampleCase(Case):
         
         # validate dict
         Expect(self.exampleApi.exampleResponse.dict).match(self.data.get('dictData'))
+        
+        # validate number
+        Expect(123456789).match(self.data.get('numberData'))
+        
+        # validate string
+        Expect('source string').match(self.data.get('strData'))
 
     def run(self):
         self.testExample()
