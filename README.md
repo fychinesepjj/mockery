@@ -59,7 +59,7 @@
 
 ###Mockery安装方法
   1. 下载安装最新版本[python](https://www.python.org/downloads/)
-  2. `git clone xxx` or 直接下载源码gz文件
+  2. `git clone https://github.com/fychinesepjj/mockery.git` or 直接[下载源码gz文件](https://codeload.github.com/fychinesepjj/mockery/zip/master)
   3. 打开或解压源码文件夹
   4. 进入./dist目录
   5. 执行安装命令`pip install Mockery-xxx.zip` (此方法会检查第三方依赖，如不存在会自动下载安装)
@@ -186,14 +186,14 @@ class TestExampleCase(Case):
     
     define('numberData',123456789, convert=convertFunc);
 ```
-convert值可以是：`json`, `''`, `None`, `def`函数，convert默认值为`''`空字符串。
-  1. 当`DEFINE_DEFAULT_CONVERT='json'`且`convert=''`时，启用默认JSON转换
-  2. 当`convert=None`，关闭默认JSON转换，使用定义原始值
+convert的几种定义：`json`, `''`, `None`, `def函数`，convert默认值是`''`空字符串。
+  1. 当`DEFINE_DEFAULT_CONVERT='json'`且`convert=''`时，默认进行JSON转换
+  2. 当`convert=None`，取消JSON转换，使用`define`定义的原始值
 
-在Case初始化完毕，`define`声明的数据会赋予Case类的data值中:
+Case初始化完毕后，`define`定义的数据会绑定到`Case.data`:
 ```python
 
-    data = {
+    Case.data = {
         'jsonData': '{"name"...}',
         'dictData': {..},
         'strData': 'string data',
@@ -201,7 +201,7 @@ convert值可以是：`json`, `''`, `None`, `def`函数，convert默认值为`''
     }
     
     # data数据是字典类型
-    type(data) == type(dict)
+    type(Case.data) == type(dict)
 ```
 
 ####Expect几种用法
