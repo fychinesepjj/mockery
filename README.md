@@ -12,6 +12,7 @@
         3. 编写Case
         4. 数据请求
         5. 执行用例
+    * 调试&错误
     * 其他
 
 ##项目说明
@@ -316,6 +317,11 @@ class TestExampleCase(Case):
 
 第一种方法灵活性高，但需要具体的Case文件名
 第二种方法针对项目运行，简单易用，要求项目必须有名为`cases.py`的文件
+
+##调试&错误
+  * mockery创建项目默认`DEBUG=True`，如果程序出现异常会打印详细的信息，以帮助快速定位错误；设置`DEBUG=False`，只打印简短错误信息。
+  * 在执行tests目录中的测试cases时，系统默认加载顶层mockery目录下代码，但为避免系统已安装代码对测试的影响，应先删除系统中已经安装的mockery，执行`pip uinstall mockery`后再进行测试，否则可能出现代码不一致而导致的错误。
+  * tests目录中API测试依赖于json目录中的数据，此时需要再mockery下建立Simple Server才能正常访问`http://localhost:8080/json/test.json`，建议使用PHP命令模式或Nodejs包`anywhere`建立服务后再进行测试。
 
 ##其他
   1. window下安装，执行`mockery`可能会出现各种错误，大部分情况下是因为权限问题，以管理员身份运行即可

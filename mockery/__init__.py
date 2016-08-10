@@ -3,3 +3,12 @@
 # author: jjpan
 
 VERSION = '0.1.0b1'
+
+'''
+[0.1.0b1]
+1. the first version of mockery.
+
+[0.1.1b1]
+1. define module provide file and sql interface.
+2. match compare of Expect support json data.
+'''

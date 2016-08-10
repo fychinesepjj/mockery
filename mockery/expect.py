@@ -17,12 +17,12 @@ def validate(func):
             if isValid:
                 msg = ' ' * 12 + '#%s Expect%s.%s  [Pass]' % (this.rank, action, func.__name__)
                 Console.success(msg)
-                msg = ' ' * 15 + 'Expect: %s, Result: %s\n' % (this.obj, param)
+                msg = ' ' * 15 + 'Input: %s, Expect: %s\n' % (this.obj, param)
                 Console.log(msg)
             else:
                 msg = ' ' * 12 + '#%s Expect%s.%s  [Fail]' % (this.rank, action, func.__name__)
                 Console.warn(msg)
-                msg = ' ' * 15 + 'Expect: %s, Result: %s\n' % (this.obj, param)
+                msg = ' ' * 15 + 'Input: %s, Expect: %s\n' % (this.obj, param)
                 Console.log(msg)
             return (this, isValid)
         except Exception as e:

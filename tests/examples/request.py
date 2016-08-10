@@ -6,8 +6,8 @@ from mockery.request import Request, Api, catch
 req = Request()
 
 class TestExampleApi(Api):
-    @req.get('http://192.168.95.1:8080/json/test.json')
-    #@req.get('http://192.168.1.101:8080/json/test.json')
+
+    @req.get('http://localhost:8080/json/test.json')
     @catch
     def getExample(self, res):
         self.exampleResponse = res
