@@ -271,6 +271,44 @@ Request对象提供两种请求：`get`, `post`
   4. `postExample(cookies = {'cookies_are':'working'})` cookies
   5. `postExample(headers = {'content-type': 'application/json'})` headers
 
+####Response对象
+`Response`对象Project在request.py中定义，在cases.py中使用
+```python
+# Set Response
+class TestExampleApi(Api):
+    @req.get('http://localhost/example.json')
+    def getExample(self, res):
+        # 请求接口，返回Response对象`res`，重命名为`getResponse`
+        self.getResponse = res
+    ...
+
+# Use Response
+class TestExampleCase(Case):
+    data = 'examples'
+    
+    def init(self):
+        # 初始化request对象，此时`getResponse`对象还不存在
+        self.exampleApi = TestExampleApi()
+    
+    @report(u'Test example')
+    def testExample(self):
+        # `getResponse`对象被创建
+        self.exampleApi.getExample()
+        
+        # 使用`getResponse`对象
+        Expect(self.exampleApi.getResponse).code.eq(200)
+        
+    # Response对象值
+    Response.status # ok
+    Response.code # 200
+    Response.content # text and images
+    Response.text # only text
+    Response.headers
+    Response.cookies
+    Response.encoding # utf-8
+    
+```
+
 ###5.执行用例
 执行用例有两种方法：
   1. 在当前Project目录中执行 `mockery run cases.py`，针对某个Case文件执行
