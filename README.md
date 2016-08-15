@@ -162,7 +162,7 @@ class TestExampleCase(Case):
     * `eq` 比较数值类型，A == B
     * `toBe` 比较`object`，`str`，`int`类型， A == B
     * `lt`，`gt` 比较数值类型，A < B，A > B
-    * `match`，比较 `dict`，`str`，`int`，其中dict类型支持部匹配，B如果是A的子集，同样也会返回`True`
+    * `contain`，比较 `dict`，`str`，`int`，其中dict类型支持部匹配，B如果是A的子集，同样也会返回`True`
 
 ####Case data数据定义与引用
 ```python
@@ -214,13 +214,13 @@ Case初始化完毕后，`define`定义的数据会绑定到`Case.data`:
     Expect(self.exampleApi.exampleResponse.json).toBe(self.data.get('jsonData'))
 
     # validate dict
-    Expect(self.exampleApi.exampleResponse.dict).match(self.data.get('dictData'))
+    Expect(self.exampleApi.exampleResponse.dict).contain(self.data.get('dictData'))
 
     # validate number
-    Expect(123456789).match(self.data.get('numberData'))
+    Expect(123456789).contain(self.data.get('numberData'))
 
     # validate string
-    Expect('source string').match(self.data.get('strData'))
+    Expect('source string').contain(self.data.get('strData'))
     
     # 获取Case定义的数据
     self.data.get('jsonData')

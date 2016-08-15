@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # author: jjpan
+import json
 import traceback
 import functools
 from mockery.conf import settings
@@ -17,12 +18,12 @@ def validate(func):
             if isValid:
                 msg = ' ' * 12 + '#%s Expect%s.%s  [Pass]' % (this.rank, action, func.__name__)
                 Console.success(msg)
-                msg = ' ' * 15 + 'Input: %s, Expect: %s\n' % (this.obj, param)
+                msg = ' ' * 15 + 'Expect: %s, %s: %s\n' % (this.obj, func.__name__, param)
                 Console.log(msg)
             else:
                 msg = ' ' * 12 + '#%s Expect%s.%s  [Fail]' % (this.rank, action, func.__name__)
                 Console.warn(msg)
-                msg = ' ' * 15 + 'Input: %s, Expect: %s\n' % (this.obj, param)
+                msg = ' ' * 15 + 'Expect: %s, %s: %s\n' % (this.obj, func.__name__, param)
                 Console.log(msg)
             return (this, isValid)
         except Exception as e:
@@ -106,7 +107,7 @@ class Expect(object):
         return self._toBe(value)
     
     @validate
-    def match(self, value):
+    def contain(self, value):
         if not value: return (self, False)
         if isinstance(self.obj, dict) and isinstance(value, dict):
             return (self, matchDict(self.obj, value))
@@ -114,6 +115,14 @@ class Expect(object):
         elif isNumber(self.obj) and isNumber(value):
             return self._eq(value)
         elif isinstance(self.obj, str) and isinstance(value, str):
+            # Try Json convert
+            try:
+                jsonObj = json.loads(self.obj)
+                jsonValue = json.loads(value)
+                if isinstance(jsonObj, dict) and isinstance(jsonValue, dict):
+                    return (self, matchDict(jsonObj, jsonValue))
+            except:
+                pass
             return (self, value in self.obj)
         else:
             return self._toBe(value)

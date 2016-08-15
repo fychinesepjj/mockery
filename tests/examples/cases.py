@@ -23,13 +23,13 @@ class TestExampleCase(Case):
         Expect(self.exampleApi.exampleResponse.json).toBe(self.data.get('jsonData'))
         
         # validate dict
-        Expect(self.exampleApi.exampleResponse.dict).match(self.data.get('dictData'))
+        Expect(self.exampleApi.exampleResponse.dict).contain(self.data.get('dictData'))
         
         # validate number
-        Expect(123456789).match(self.data.get('numberData'))
+        Expect(123456789).contain(self.data.get('numberData'))
         
         # validate string
-        Expect('source string').match(self.data.get('strData'))
+        Expect('source string').contain(self.data.get('strData'))
 
     def run(self):
         self.testExample()
