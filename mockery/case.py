@@ -6,6 +6,7 @@ import types
 import functools
 import traceback
 from mockery.conf import settings
+from mockery.loader import BaseLoader
 from mockery.utils import Console, loadModule, dumpJson
 
 
@@ -62,7 +63,7 @@ class Case(object):
 class Define(object):
     store = {}
     
-    def __call__(self, name, value, convert=''):
+    def __call__(self, name, value=None, convert='', loader=None):
         try:
             if convert == 'json' or \
                 convert == '' and \
@@ -70,6 +71,10 @@ class Define(object):
                 settings.DEFINE_DEFAULT_CONVERT == 'json':
                 convert = dumpJson
 
+            if loader:
+                if isinstance(loader, BaseLoader):
+                    value = loader.load()
+                
             if convert:
                 if type(convert) == types.FunctionType:
                     Define.store[name] = convert(value)

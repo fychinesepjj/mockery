@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+def equal(a, b):
+    return a==b
 
-def test_print(cases):
+
+def test_print(cases, action=equal):
     print('\n---------------Test Start---------------\n')
-    action = cases()
+    gen = cases()
     try:
         while True:
-            result, status = action.next()
-            if result == status:
+            result, status = next(gen)
+            if action(result, status):
                 print('--->[Passed]\n')
             else:
                 print('--->[Fail]\nExpect=%s\nResult=%s\n\n' % (result, status))

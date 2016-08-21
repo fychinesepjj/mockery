@@ -30,6 +30,9 @@ class TestExampleCase(Case):
         
         # validate string
         Expect('source string').contain(self.data.get('strData'))
+        
+        # validate file string
+        Expect('file string').contain(self.data.get('fileStr'))
 
     def run(self):
         self.testExample()
